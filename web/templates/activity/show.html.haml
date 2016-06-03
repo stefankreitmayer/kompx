@@ -1,0 +1,19 @@
+%h2 Show activity
+
+%ul
+
+  %li
+    %strong Title:
+    = @activity.title
+
+  %li
+    %strong Summary:
+    = @activity.summary
+
+  %li
+    %strong Published:
+    = @activity.published
+
+
+= link "Edit", to: activity_path(@conn, :edit, @activity)
+= link "Back", to: activity_path(@conn, :index)

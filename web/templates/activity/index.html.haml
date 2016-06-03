@@ -1,0 +1,23 @@
+%h2 Listing activities
+
+%table.table
+  %thead
+    %tr
+      %th Title
+      %th Summary
+      %th Published
+
+      %th
+  %tbody
+    - for activity <- @activities do
+      %tr
+      %td= activity.title
+      %td= activity.summary
+      %td= activity.published
+
+      %td.text-right
+        = link "Show", to: activity_path(@conn, :show, activity), class: "btn btn-default btn-xs"
+        = link "Edit", to: activity_path(@conn, :edit, activity), class: "btn btn-default btn-xs"
+        = link "Delete", to: activity_path(@conn, :delete, activity), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+= link "New activity", to: activity_path(@conn, :new)

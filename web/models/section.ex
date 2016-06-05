@@ -1,17 +1,15 @@
-defmodule Kompax.Activity do
+defmodule Kompax.Section do
   use Kompax.Web, :model
 
-  schema "activities" do
+  schema "sections" do
     field :title, :string
-    field :summary, :string
-    field :published, :boolean, default: false
-
-    has_many :sections, Kompax.Section
+    field :position, :integer
+    belongs_to :activity, Kompax.Activity
 
     timestamps
   end
 
-  @required_fields ~w(title summary published)
+  @required_fields ~w(title activity_id)
   @optional_fields ~w()
 
   @doc """
@@ -23,5 +21,6 @@ defmodule Kompax.Activity do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_length(:title, min: 3)
   end
 end

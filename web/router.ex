@@ -16,13 +16,14 @@ defmodule Kompax.Router do
   scope "/", Kompax do
     pipe_through :browser # Use the default browser stack
 
-    resources "/activities", ActivityController
-
+    resources "/activities", ActivityController do
+      resources "/sections", SectionController, except: [:index]
+    end
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
   # scope "/api", Kompax do
-  #   pipe_through :api
+    #   pipe_through :api
   # end
 end

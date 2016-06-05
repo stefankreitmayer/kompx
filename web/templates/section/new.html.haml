@@ -1,0 +1,5 @@
+%h2 New section
+
+= render "form.html", changeset: @changeset, action: activity_section_path(@conn, :create, @activity.id)
+
+= link "Back", to: activity_path(@conn, :show, @activity)

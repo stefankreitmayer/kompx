@@ -1,0 +1,10 @@
+%h2 Show section
+
+%ul
+  %li
+    %strong Title:
+    = @section.title
+
+
+= link "Edit", to: activity_section_path(@conn, :edit, @section.activity, @section)
+= link "Back", to: activity_path(@conn, :show, @section.activity)

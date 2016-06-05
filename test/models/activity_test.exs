@@ -15,4 +15,14 @@ defmodule Kompax.ActivityTest do
     changeset = Activity.changeset(%Activity{}, @invalid_attrs)
     refute changeset.valid?
   end
+
+  test "title required" do
+    changeset = Activity.changeset(%Activity{}, Map.merge(@valid_attrs, %{title: ""}))
+    refute changeset.valid?
+  end
+
+  test "summary required" do
+    changeset = Activity.changeset(%Activity{}, Map.merge(@valid_attrs, %{summary: ""}))
+    refute changeset.valid?
+  end
 end

@@ -7,17 +7,16 @@
   %li
     %strong Published:
     = @activity.published
-  %li
-    %h3 Sections
-    %ul
-      - for section <- @activity.sections do
-        %li
-          = section.title
-          = link "Edit", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs"
-          = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
-    = link "New section", to: activity_section_path(@conn, :new, @activity)
+= link "Edit", to: activity_path(@conn, :edit, @activity)
+%h3 Sections
+%ul
+  - for section <- @activity.sections do
+    %li
+      = section.title
+      = link "Edit", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs"
+      = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+= link "New section", to: activity_section_path(@conn, :new, @activity)
 
 %hr
 
-= link "Edit", to: activity_path(@conn, :edit, @activity)
 = link "Back", to: activity_path(@conn, :index)

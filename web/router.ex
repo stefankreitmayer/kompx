@@ -19,11 +19,16 @@ defmodule Kompax.Router do
     resources "/activities", ActivityController do
       resources "/sections", SectionController, except: [:index]
     end
+
+    resources "/sections", SectionController, only: [] do
+      resources "/paragraphs", ParagraphController, except: [:index, :show]
+    end
+
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
   # scope "/api", Kompax do
-    #   pipe_through :api
+  #   pipe_through :api
   # end
 end

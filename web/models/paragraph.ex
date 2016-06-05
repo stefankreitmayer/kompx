@@ -1,16 +1,17 @@
-defmodule Kompax.Section do
+defmodule Kompax.Paragraph do
   use Kompax.Web, :model
 
-  schema "sections" do
-    field :title, :string
+  schema "paragraphs" do
+    field :body, :string
     field :position, :integer
-    belongs_to :activity, Kompax.Activity
-    has_many :paragraphs, Kompax.Paragraph
+    field :bullet, :boolean, default: false
+
+    belongs_to :section, Kompax.Section
 
     timestamps
   end
 
-  @required_fields ~w(title activity_id)
+  @required_fields ~w(body bullet section_id)
   @optional_fields ~w()
 
   @doc """
@@ -22,6 +23,6 @@ defmodule Kompax.Section do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> validate_length(:title, min: 3)
+    |> validate_length(:body, min: 3)
   end
 end

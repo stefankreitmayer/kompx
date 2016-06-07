@@ -1,20 +1,29 @@
 %h2= "Activity: #{@activity.title}"
-
-%ul
-  %li
-    %strong Summary:
-    = @activity.summary
-  %li
-    %strong Published:
-    = @activity.published
-= link "Edit", to: activity_path(@conn, :edit, @activity)
+%p
+  %strong Summary:
+  = @activity.summary
+%p
+  %strong Published:
+  = @activity.published
+= link "Edit", to: activity_path(@conn, :edit, @activity), class: "btn btn-default btn-xs"
 %h3 Sections
-%ul
-  - for section <- @activity.sections do
-    %li
-      = section.title
-      = link "Edit", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs"
-      = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+- for section <- @activity.sections do
+  .row
+    .col-xs-6
+      %h4= section.title
+    .col-xs-6
+      = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
+      = link "Edit Paragraphs", to: activity_section_path(@conn, :show, @activity, section), class: "btn btn-default btn-xs pull-right"
+      = link "Change Title", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right"
+  - for paragraph <- section.paragraphs do
+    - if paragraph.bullet do
+      %ul.paragraph-bullet
+        %li
+          = paragraph.body
+    - else
+      %p.paragraph-nobullet
+        = paragraph.body
+  %hr
 = link "New section", to: activity_section_path(@conn, :new, @activity)
 
 %hr

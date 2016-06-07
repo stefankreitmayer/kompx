@@ -25,8 +25,9 @@ defmodule Kompax.SectionControllerTest do
 
   test "creates resource and redirects when data is valid", %{conn: conn, activity: activity} do
     conn = post conn, activity_section_path(conn, :create, activity), section: @valid_attrs
+    section = Repo.get_by(Section, @valid_attrs)
+    assert section
     assert redirected_to(conn) == activity_path(conn, :show, activity)
-    assert Repo.get_by(Section, @valid_attrs)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn, activity: activity} do
@@ -37,7 +38,8 @@ defmodule Kompax.SectionControllerTest do
   test "shows chosen resource", %{conn: conn, activity: activity} do
     section = Repo.insert! %Section{activity_id: activity.id}
     conn = get conn, activity_section_path(conn, :show, activity, section)
-    assert html_response(conn, 200) =~ "Show section"
+    assert html_response(conn, 200) =~ "Section"
+    assert html_response(conn, 200) =~ "New paragraph"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn, activity: activity} do
@@ -55,7 +57,7 @@ defmodule Kompax.SectionControllerTest do
   test "updates chosen resource and redirects when data is valid", %{conn: conn, activity: activity} do
     section = Repo.insert! %Section{activity_id: activity.id}
     conn = put conn, activity_section_path(conn, :update, activity, section), section: @valid_attrs
-    assert redirected_to(conn) == activity_section_path(conn, :show, activity, section)
+    assert redirected_to(conn) == activity_path(conn, :show, activity)
     assert Repo.get_by(Section, @valid_attrs)
   end
 

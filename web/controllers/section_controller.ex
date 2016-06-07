@@ -32,7 +32,7 @@ defmodule Kompax.SectionController do
   end
 
   def show(conn, %{"id" => id}) do
-    section = Repo.get!(Section, id) |> Repo.preload(:activity)
+    section = Repo.get!(Section, id) |> Repo.preload([:activity, :paragraphs])
     render(conn, "show.html", section: section)
   end
 
@@ -47,10 +47,10 @@ defmodule Kompax.SectionController do
     activity = section.activity
     changeset = Section.changeset(section, section_params)
     case Repo.update(changeset) do
-      {:ok, section} ->
+      {:ok, _section} ->
         conn
         |> put_flash(:info, "Section updated successfully.")
-        |> redirect(to: activity_section_path(conn, :show, activity, section))
+        |> redirect(to: activity_path(conn, :show, activity))
       {:error, changeset} ->
         render(conn, "edit.html", section: section, changeset: changeset)
     end

@@ -48,17 +48,6 @@ form.link, form.button {
   margin: 30px 0;
 }
 
-/* Main marketing message */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 35px 0;
-}
-
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
@@ -75,4 +64,31 @@ form.link, form.button {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+h2{
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+
+h3{
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+
+h4{
+  margin: 0;
+}
+
+.paragraph-show{
+  margin-bottom: 25px;
+}
+
+.paragraph-bullet{
+  margin: 0px;
+}
+
+.paragraph-nobullet{
+  margin: 0;
+  margin-left: 40px;
 }

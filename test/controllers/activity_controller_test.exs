@@ -27,9 +27,9 @@ defmodule Kompax.ActivityControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    activity = Repo.insert! %Activity{}
+    activity = Repo.insert! %Activity{title: "Jump for joy"}
     conn = get conn, activity_path(conn, :show, activity)
-    assert html_response(conn, 200) =~ "Activity:"
+    assert html_response(conn, 200) =~ "Activity: Jump for joy"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do

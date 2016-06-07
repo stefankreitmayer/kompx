@@ -1,10 +1,22 @@
-%h2 Show section
-
-%ul
-  %li
-    %strong Title:
-    = @section.title
-
-
-= link "Edit", to: activity_section_path(@conn, :edit, @section.activity, @section)
-= link "Back", to: activity_path(@conn, :show, @section.activity)
+%h2
+  = "Section:"
+  = link @section.activity.title, to: activity_path(@conn, :show, @section.activity)
+  = " / #{@section.title}"
+%hr
+- for paragraph <- @section.paragraphs do
+  .row.paragraph-show
+    .col-xs-8
+      - if paragraph.bullet do
+        %ul.paragraph-bullet
+          %li
+            = paragraph.body
+      - else
+        = paragraph.body
+    .col-xs-4
+      = link "Edit", to: section_paragraph_path(@conn, :edit, @section, paragraph), class: "btn btn-default btn-xs"
+      = link "Delete", to: section_paragraph_path(@conn, :delete, @section, paragraph), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+%p
+  = link "New paragraph", to: section_paragraph_path(@conn, :new, @section)
+%hr
+%p
+  = link "Back", to: activity_path(@conn, :show, @section.activity)

@@ -29,7 +29,7 @@ defmodule Kompax.ActivityController do
   end
 
   def show(conn, %{"id" => id}) do
-    activity = Repo.get!(Activity, id) |> Repo.preload(:sections)
+    activity = Repo.get!(Activity, id) |> Repo.preload(sections: :paragraphs)
     render(conn, "show.html", activity: activity)
   end
 

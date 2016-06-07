@@ -3,6 +3,9 @@ defmodule Kompax.SectionControllerTest do
 
   alias Kompax.Section
   alias Kompax.Activity
+  alias Kompax.Paragraph
+
+  import Ecto
 
   @valid_attrs %{title: "some content"}
   @invalid_attrs %{}
@@ -72,5 +75,14 @@ defmodule Kompax.SectionControllerTest do
     conn = delete conn, activity_section_path(conn, :delete, activity, section)
     assert redirected_to(conn) == activity_path(conn, :show, activity)
     refute Repo.get(Section, section.id)
+  end
+
+  test "moves a paragraph up in the sequence", %{conn: conn, activity: activity} do
+    section = Repo.insert! %Section{activity_id: activity.id}
+    {:ok, paragraph_a} = build_assoc(section, :paragraphs, position: 0) |> Repo.insert
+    {:ok, paragraph_b} = build_assoc(section, :paragraphs, position: 1) |> Repo.insert
+    conn = patch conn, section_path(conn, :move_paragraph_down, section, paragraph_id: paragraph_b.id)
+    assert(Repo.get!(Paragraph, paragraph_a.id).position == 1)
+    assert(Repo.get!(Paragraph, paragraph_b.id).position == 0)
   end
 end

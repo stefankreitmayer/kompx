@@ -24,11 +24,13 @@ defmodule Kompax.Router do
       resources "/paragraphs", ParagraphController, except: [:index, :show]
     end
 
+    patch "/sections/:id/move_paragraph_down", SectionController, :move_paragraph_down
+
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
   # scope "/api", Kompax do
-  #   pipe_through :api
-  # end
+    #   pipe_through :api
+    # end
 end

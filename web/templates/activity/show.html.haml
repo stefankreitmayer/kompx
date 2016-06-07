@@ -15,7 +15,7 @@
       = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
       = link "Edit Paragraphs", to: activity_section_path(@conn, :show, @activity, section), class: "btn btn-default btn-xs pull-right"
       = link "Change Title", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right"
-  - for paragraph <- section.paragraphs do
+  - for paragraph <- (section.paragraphs |> Enum.sort(&(&1.position > &2.position))) do
     - if paragraph.bullet do
       %ul.paragraph-bullet
         %li

@@ -3,7 +3,8 @@
   = link @section.activity.title, to: activity_path(@conn, :show, @section.activity)
   = " / #{@section.title}"
 %hr
-- for paragraph <- (@section.paragraphs |> Enum.sort(&(&1.position > &2.position))) do
+- paragraphs = @section.paragraphs |> Enum.sort(&(&1.position > &2.position))
+- for paragraph <- paragraphs do
   .row.paragraph-show
     .col-xs-8
       - if paragraph.bullet do
@@ -12,8 +13,9 @@
             = paragraph.body
       - else
         = paragraph.body
-    .col-xs-4
-      = link "Move", to: section_path(@conn, :move_paragraph_down, @section), params: %{paragraph_id: paragraph.id}, method: :patch, class: "btn btn-default btn-xs"
+    .col-xs-4.text-right
+      - unless paragraph == List.last(paragraphs) do
+        = link "Lower", to: move_paragraph_path(@conn, :move, paragraph), method: :patch, class: "btn btn-default btn-xs"
       = link "Edit", to: section_paragraph_path(@conn, :edit, @section, paragraph), class: "btn btn-default btn-xs"
       = link "Delete", to: section_paragraph_path(@conn, :delete, @section, paragraph), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
 %p

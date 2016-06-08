@@ -3,6 +3,7 @@ defmodule Kompax.ParagraphController do
 
   alias Kompax.Paragraph
   alias Kompax.Section
+  alias Kompax.Sequencer
 
   plug :scrub_params, "paragraph" when action in [:create, :update]
 
@@ -51,6 +52,17 @@ defmodule Kompax.ParagraphController do
     Repo.delete!(paragraph)
     conn
     |> put_flash(:info, "Paragraph deleted successfully.")
+    |> redirect(to: activity_section_path(conn, :show, section.activity, section))
+  end
+
+  def move(conn, %{"id" => id}) do
+    paragraph = Repo.get!(Paragraph, id) |> Repo.preload(:section)
+    section = paragraph.section |> Repo.preload([:paragraphs, :activity])
+    section.paragraphs
+    |> Sequencer.lower(id)
+    |> Enum.each(fn({par, pos}) -> Repo.update!(Ecto.Changeset.change(par, %{position: pos})) end)
+    conn
+    # |> put_flash(:info, "Successfully changed the order of paragraphs.")
     |> redirect(to: activity_section_path(conn, :show, section.activity, section))
   end
 end

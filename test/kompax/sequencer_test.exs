@@ -4,9 +4,9 @@ defmodule SequencerTest do
   alias Kompax.Sequencer
 
   defp dummies do
-    a = %{id: 100, position: 0}
-    b = %{id: 200, position: 1}
-    c = %{id: 300, position: 2}
+    a = %{id: 100, position: 10}
+    b = %{id: 200, position: 11}
+    c = %{id: 300, position: 12}
     { a, b, c }
   end
 
@@ -19,9 +19,17 @@ defmodule SequencerTest do
     assert Sequencer.lower([], 0) == []
   end
 
-  test "positions are normalized to start from zero" do
+  test "new positions start from zero" do
     model = %{id: 123, position: 5555}
     assert Sequencer.lower([model], model.id) == [{model, 0}]
+  end
+
+  test "reverse the order of two items" do
+    a = %{id: 111, position: 9}
+    b = %{id: 222, position: 5}
+    output = Sequencer.lower([a, b], a.id)
+    assert(Enum.any?(output, fn({par, pos}) -> par==a && pos==0 end))
+    assert(Enum.any?(output, fn({par, pos}) -> par==b && pos==1 end))
   end
 
   test "changing the first item has no effect on the sequence" do
@@ -46,5 +54,10 @@ defmodule SequencerTest do
     assert output_position(output, a) == 0
     assert output_position(output, b) == 2
     assert output_position(output, c) == 1
+  end
+
+  test "input list order doesn't matter" do
+    {a, b, c} = dummies
+    assert Sequencer.lower([a, b, c], c.id) == Sequencer.lower([c, a, b], c.id)
   end
 end

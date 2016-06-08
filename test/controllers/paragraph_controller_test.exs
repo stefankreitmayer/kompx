@@ -5,6 +5,8 @@ defmodule Kompax.ParagraphControllerTest do
   alias Kompax.Section
   alias Kompax.Activity
 
+  import Ecto
+
   @valid_attrs %{body: "some content", bullet: true}
   @invalid_attrs %{}
 
@@ -66,5 +68,14 @@ defmodule Kompax.ParagraphControllerTest do
     conn = delete conn, section_paragraph_path(conn, :delete, section, paragraph)
     assert redirected_to(conn) == activity_section_path(conn, :show, section.activity, section)
     refute Repo.get(Paragraph, paragraph.id)
+  end
+
+  test "moves the chosen paragraph", %{conn: conn, section: section} do
+    {:ok, paragraph_a} = build_assoc(section, :paragraphs, position: 100) |> Repo.insert
+    {:ok, paragraph_b} = build_assoc(section, :paragraphs, position: 200) |> Repo.insert
+    conn = patch conn, move_paragraph_path(conn, :move, paragraph_b)
+    assert(Repo.get!(Paragraph, paragraph_a.id).position == 1)
+    assert(Repo.get!(Paragraph, paragraph_b.id).position == 0)
+    assert redirected_to(conn) == activity_section_path(conn, :show, section.activity, section)
   end
 end

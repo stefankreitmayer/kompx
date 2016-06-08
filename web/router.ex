@@ -24,7 +24,7 @@ defmodule Kompax.Router do
       resources "/paragraphs", ParagraphController, except: [:index, :show]
     end
 
-    patch "/sections/:id/move_paragraph_down", SectionController, :move_paragraph_down
+    patch "/move_paragraph/:id", ParagraphController, :move, as: :move_paragraph
 
     get "/", PageController, :index
   end

@@ -67,16 +67,4 @@ defmodule Kompax.SectionController do
     |> put_flash(:info, "Section deleted successfully.")
     |> redirect(to: activity_path(conn, :show, activity))
   end
-
-  def move_paragraph_down(conn, %{"id" => id, "paragraph_id" => paragraph_id}) do
-    section = Repo.get!(Section, id) |> Repo.preload([:activity, :paragraphs])
-    section.paragraphs
-    |> Sequencer.lower(paragraph_id)
-    |> Enum.each(fn({par, pos}) -> Repo.update!(Ecto.Changeset.change(par, %{position: pos})) end)
-    IO.inspect(section.paragraphs |> Sequencer.lower(paragraph_id))
-    IO.puts paragraph_id
-    conn
-    |> put_flash(:info, "Successfully changed the order of paragraphs.")
-    |> redirect(to: activity_section_path(conn, :show, section.activity, section))
-  end
 end

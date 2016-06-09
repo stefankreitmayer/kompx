@@ -16,9 +16,11 @@ defmodule Kompax.ParagraphController do
   def create(conn, %{"paragraph" => paragraph_params, "section_id" => section_id}) do
     section = Repo.get!(Section, section_id) |> Repo.preload(:activity)
     paragraph = build_assoc(section, :paragraphs)
-    changeset = Paragraph.changeset(paragraph, Map.merge(paragraph_params, %{"position" => "8888"}))
+    changeset = Paragraph.changeset(paragraph, paragraph_params)
     case Repo.insert(changeset) do
-      {:ok, _paragraph} ->
+      {:ok, paragraph} ->
+        paragraph = Ecto.Changeset.change(paragraph, %{position: -paragraph.id})
+        Repo.update!(paragraph)
         conn
         |> put_flash(:info, "Paragraph created successfully.")
         |> redirect(to: activity_section_path(conn, :show, section.activity, section))

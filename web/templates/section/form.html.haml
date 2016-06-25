@@ -6,8 +6,13 @@
 
   .form-group
     = label f, :title, class: "control-label"
-    = text_input f, :title, class: "form-control", autofocus: true
+    = text_input f, :title, class: "form-control", autofocus: true, required: true, maxlength: 100
     = error_tag f, :title
+
+  .form-group
+    = label f, :body, class: "control-label"
+    = textarea f, :body, class: "form-control", required: true, maxlength: 4000, rows: 15
+    = error_tag f, :body
 
   .form-group
     = submit "Submit", class: "btn btn-primary"

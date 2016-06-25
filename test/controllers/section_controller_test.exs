@@ -7,7 +7,7 @@ defmodule Kompax.SectionControllerTest do
 
   import Ecto
 
-  @valid_attrs %{title: "some content"}
+  @valid_attrs %{title: "some content", body: "some plain text"}
   @invalid_attrs %{}
 
   setup do
@@ -36,19 +36,6 @@ defmodule Kompax.SectionControllerTest do
   test "does not create resource and renders errors when data is invalid", %{conn: conn, activity: activity} do
     conn = post conn, activity_section_path(conn, :create, activity), section: @invalid_attrs
     assert html_response(conn, 200) =~ "New section"
-  end
-
-  test "shows chosen resource", %{conn: conn, activity: activity} do
-    section = Repo.insert! %Section{activity_id: activity.id}
-    conn = get conn, activity_section_path(conn, :show, activity, section)
-    assert html_response(conn, 200) =~ "Section"
-    assert html_response(conn, 200) =~ "New paragraph"
-  end
-
-  test "renders page not found when id is nonexistent", %{conn: conn, activity: activity} do
-    assert_error_sent 404, fn ->
-      get conn, activity_section_path(conn, :show, -1, activity)
-    end
   end
 
   test "renders form for editing chosen resource", %{conn: conn, activity: activity} do

@@ -34,11 +34,6 @@ defmodule Kompax.SectionController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    section = Repo.get!(Section, id) |> Repo.preload([:activity, :paragraphs])
-    render(conn, "show.html", section: section)
-  end
-
   def edit(conn, %{"id" => id}) do
     section = Repo.get!(Section, id) |> Repo.preload(:activity)
     changeset = Section.changeset(section)

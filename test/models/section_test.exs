@@ -3,7 +3,7 @@ defmodule Kompax.SectionTest do
 
   alias Kompax.Section
 
-  @valid_attrs %{position: 42, title: "some content", activity_id: 1}
+  @valid_attrs %{position: 42, title: "some title", activity_id: 1, body: "some plain text"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
@@ -18,6 +18,11 @@ defmodule Kompax.SectionTest do
 
   test "title required" do
     changeset = Section.changeset(%Section{}, Map.merge(@valid_attrs, %{title: ""}))
+    refute changeset.valid?
+  end
+
+  test "body required" do
+    changeset = Section.changeset(%Section{}, Map.merge(@valid_attrs, %{body: ""}))
     refute changeset.valid?
   end
 end

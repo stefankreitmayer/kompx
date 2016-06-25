@@ -17,14 +17,8 @@ defmodule Kompax.Router do
     pipe_through :browser # Use the default browser stack
 
     resources "/activities", ActivityController do
-      resources "/sections", SectionController, except: [:index]
+      resources "/sections", SectionController, except: [:index, :show]
     end
-
-    resources "/sections", SectionController, only: [] do
-      resources "/paragraphs", ParagraphController, except: [:index, :show]
-    end
-
-    patch "/move_paragraph/:id", ParagraphController, :move, as: :move_paragraph
 
     get "/", PageController, :index
   end

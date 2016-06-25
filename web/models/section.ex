@@ -3,6 +3,7 @@ defmodule Kompax.Section do
 
   schema "sections" do
     field :title, :string
+    field :body, :string
     field :position, :integer
     belongs_to :activity, Kompax.Activity
     has_many :paragraphs, Kompax.Paragraph
@@ -10,7 +11,7 @@ defmodule Kompax.Section do
     timestamps
   end
 
-  @required_fields ~w(title activity_id)
+  @required_fields ~w(title body activity_id)
   @optional_fields ~w()
 
   @doc """
@@ -23,5 +24,6 @@ defmodule Kompax.Section do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> validate_length(:title, min: 3)
+    |> validate_length(:body, min: 3)
   end
 end

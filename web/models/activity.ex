@@ -8,11 +8,10 @@ defmodule Kompax.Activity do
 
     has_many :sections, Kompax.Section
 
-    timestamps
+    timestamps()
   end
 
-  @required_fields ~w(title summary published)
-  @optional_fields ~w()
+  @allowed_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -20,10 +19,9 @@ defmodule Kompax.Activity do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
-    model
-    |> cast(params, @required_fields, @optional_fields)
-    |> validate_length(:title, min: 3)
-    |> validate_length(:summary, min: 3)
+  def changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, ~w(title summary published)a)
+    |> validate_required(~w(title summary published)a)
   end
 end

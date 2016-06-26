@@ -14,6 +14,8 @@ config :kompax, Kompax.Endpoint,
   pubsub: [name: Kompax.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :kompax, ecto_repos: [Kompax.Repo]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

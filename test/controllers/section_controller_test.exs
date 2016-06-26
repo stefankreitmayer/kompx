@@ -9,7 +9,7 @@ defmodule Kompax.SectionControllerTest do
 
   setup do
     {:ok, activity} = create_activity
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn, activity: activity}
   end
 

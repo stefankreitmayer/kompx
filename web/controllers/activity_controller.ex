@@ -2,6 +2,8 @@ defmodule Kompax.ActivityController do
   use Kompax.Web, :controller
 
   alias Kompax.Activity
+  alias Kompax.Section
+  alias Ecto.Changeset
 
   plug :scrub_params, "activity" when action in [:create, :update]
 
@@ -17,7 +19,7 @@ defmodule Kompax.ActivityController do
 
   def create(conn, %{"activity" => activity_params}) do
     changeset = Activity.changeset(%Activity{}, activity_params)
-
+    |> Changeset.put_assoc(:sections, default_sections)
     case Repo.insert(changeset) do
       {:ok, _activity} ->
         conn
@@ -63,5 +65,10 @@ defmodule Kompax.ActivityController do
     conn
     |> put_flash(:info, "Activity deleted successfully.")
     |> redirect(to: activity_path(conn, :index))
+  end
+
+  defp default_sections do
+    ~w(Ziele Material Schritte)
+    |> Enum.map(fn(title) -> %Section{title: title, body: "TODO"} end)
   end
 end

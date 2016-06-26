@@ -3,9 +3,6 @@ defmodule Kompax.SectionControllerTest do
 
   alias Kompax.Section
   alias Kompax.Activity
-  alias Kompax.Paragraph
-
-  import Ecto
 
   @valid_attrs %{title: "some content", body: "some plain text"}
   @invalid_attrs %{}

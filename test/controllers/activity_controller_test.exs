@@ -15,10 +15,17 @@ defmodule Kompax.ActivityControllerTest do
     assert html_response(conn, 200) =~ "New activity"
   end
 
-  test "creates resource and redirects when data is valid", %{conn: conn} do
+  test "creates activity with default sections and redirects when data is valid", %{conn: conn} do
     conn = post conn, activity_path(conn, :create), activity: @valid_attrs
     assert redirected_to(conn) == activity_path(conn, :index)
-    assert Repo.get_by(Activity, @valid_attrs)
+    activity = Repo.get_by(Activity, @valid_attrs)
+    assert activity
+    default_sections = Repo.preload(activity, :sections).sections
+    titles = Enum.map(default_sections, fn(section) -> section.title end)
+    assert(Enum.member? titles,"Ziele")
+    assert(Enum.member? titles,"Material")
+    assert(Enum.member? titles,"Schritte")
+    default_sections |> Enum.map(fn(section) -> assert section.body=="TODO" end)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do

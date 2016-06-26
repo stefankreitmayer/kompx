@@ -3,7 +3,6 @@ defmodule Kompax.SectionController do
 
   alias Kompax.Section
   alias Kompax.Activity
-  alias Kompax.Sequencer
 
   import Ecto
 

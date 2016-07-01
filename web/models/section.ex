@@ -6,7 +6,6 @@ defmodule Kompax.Section do
     field :body, :string
     field :position, :integer
     belongs_to :activity, Kompax.Activity
-    has_many :paragraphs, Kompax.Paragraph
 
     timestamps()
   end

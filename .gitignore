@@ -24,3 +24,7 @@ erl_crash.dump
 /config/prod.secret.exs
 
 .DS_Store
+
+# Elm sources and compiled JS
+/web/elm/elm-stuff
+/web/static/vendor/main.js

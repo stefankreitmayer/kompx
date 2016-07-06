@@ -9,6 +9,7 @@
 
     %title Kompax
     %link(rel="stylesheet" href='#{static_path(@conn, "/css/app.css")}')
+    %script(src='#{static_path(@conn, "/js/app.js")}')
 
   %body
     .container
@@ -33,5 +34,3 @@
 
       %main(role="main")
         = render @view_module, @view_template, assigns
-
-    %script(src='#{static_path(@conn, "/js/app.js")}')

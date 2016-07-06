@@ -1,1 +1,1 @@
-<%= Moekdown.html(@body) |> raw %>
+<%= Moekdown.html(@body || "") |> raw %>

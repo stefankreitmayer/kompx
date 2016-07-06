@@ -8,7 +8,7 @@ defmodule Kompax.Moekdown do
     cond do
       line =~ ~r/\A\*\*/ ->
         tail = String.replace_leading(line, "*","")
-        "<ul><li><ul><li>#{tail}</li></ul></li></ul>"
+        "<ul style='margin-left: 40px; list-style-type:circle'><li>#{tail}</li></ul>"
       line =~ ~r/\A\*/ ->
         tail = String.replace_prefix(line, "*","")
         "<ul><li>#{tail}</li></ul>"

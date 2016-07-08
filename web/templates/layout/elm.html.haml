@@ -1,0 +1,23 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
+    %meta(name="description" content="")
+    %meta(name="author" content="")
+
+    %title Kompax
+    %script(src='#{static_path(@conn, "/js/app.js")}')
+
+  %body(style="margin: 0; position: relative; background: #ddd")
+  %script(type="text/javascript")
+    <!--
+    var app = Elm.Main.fullscreen();
+    //-->
+  %noscript
+    Bitte aktivieren Sie JavaScript in Ihrem Browser.
+    %br
+    Eine Anleitung dazu finden Sie
+    %a{href: "http://enable-javascript.com/de/", target: "_blank"}
+      hier.

@@ -1,8 +1,10 @@
 module Model exposing (..)
 
+import Helpers exposing (..)
 
 type alias Model =
   { activities : List Activity
+  , filteredActivities : List Activity
   , filters : List Filter }
 
 type alias Activity =
@@ -10,7 +12,7 @@ type alias Activity =
   , tags : List String }
 
 type alias Filter =
-  { text : String
+  { tag : String
   , checked : Bool }
 
 
@@ -20,6 +22,7 @@ initialModel =
       activities = dummyActivities
   in
       { activities = activities
+      , filteredActivities = []
       , filters = createFilters activities }
 
 
@@ -36,17 +39,6 @@ createFilters activities =
       uniqueTagStrings = activities
       |> List.map (\activity -> activity.tags)
       |> List.concat
-      |> removeDuplicates
+      |> dropDuplicates
   in
       List.map (\tag -> Filter tag False) uniqueTagStrings
-
-
-removeDuplicates : List a -> List a
-removeDuplicates xs =
-  case xs of
-    [] -> []
-    hd::tl ->
-      if List.member hd tl then
-        removeDuplicates tl
-      else
-        hd :: (removeDuplicates tl)

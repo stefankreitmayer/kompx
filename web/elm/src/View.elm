@@ -9,11 +9,12 @@ import Subscription exposing (..)
 
 
 view : Model -> Html Msg
-view {filters} =
+view ({filters} as model) =
   div
     []
     [ h2 [] [ Html.text "Kategorien auswählen" ]
     , renderFilters filters
+    , renderResultsCount (List.length model.filteredActivities)
     ]
 
 
@@ -32,5 +33,15 @@ renderFilter filter =
       [ classList [ ("filterbutton", True), ("checked", filter.checked) ]
       , onClick (Check filter)
       ]
-      [ Html.text filter.text ]
+      [ Html.text filter.tag ]
     ]
+
+
+renderResultsCount : Int -> Html Msg
+renderResultsCount n =
+  let
+      message = (toString n) ++ " Suchergebnisse"
+  in
+      div
+        []
+        [ Html.text message ]

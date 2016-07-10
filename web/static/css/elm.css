@@ -1,0 +1,15 @@
+ul.filterlist{
+  list-style: none;
+  padding: 0px;
+}
+
+ul.filterlist li{
+}
+
+.filterbutton{
+  background-color: grey;
+}
+
+.checked{
+  background-color: green;
+}

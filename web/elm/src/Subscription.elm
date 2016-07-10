@@ -5,7 +5,9 @@ import Html exposing (Html)
 import Model exposing (..)
 
 
-type Msg = NoOp
+type Msg
+  = Check Filter
+  | NoOp
 
 subscriptions : Model -> Sub Msg
 subscriptions model =

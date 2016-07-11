@@ -1,9 +1,11 @@
-ul.filterlist{
+/* FILTER PAGE */
+
+ul.filter-list{
   list-style: none;
   padding: 0px;
 }
 
-ul.filterlist li{
+ul.filter-list li{
 }
 
 .filterbutton{
@@ -13,3 +15,12 @@ ul.filterlist li{
 .checked{
   background-color: green;
 }
+
+
+/* SEARCH RESULTS PAGE */
+
+ul.serch-results-list{
+  list-style: none;
+  padding: 0px;
+}
+

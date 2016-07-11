@@ -5,7 +5,8 @@ import Helpers exposing (..)
 type alias Model =
   { activities : List Activity
   , filteredActivities : List Activity
-  , filters : List Filter }
+  , filters : List Filter
+  , currentPage : Page }
 
 type alias Activity =
   { title : String
@@ -15,6 +16,10 @@ type alias Filter =
   { tag : String
   , checked : Bool }
 
+type Page
+  = FilterPage
+  | Serp
+
 
 initialModel : Model
 initialModel =
@@ -23,7 +28,8 @@ initialModel =
   in
       { activities = activities
       , filteredActivities = []
-      , filters = createFilters activities }
+      , filters = createFilters activities
+      , currentPage = FilterPage }
 
 
 dummyActivities : List Activity

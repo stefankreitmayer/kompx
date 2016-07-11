@@ -8,18 +8,21 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update action ({activities,filters} as model) =
   case action of
 
-    NoOp ->
-      (model, Cmd.none)
-
     Check filter ->
       let
           filters' = toggleFilter filter filters
           checkedFilters = filters' |> List.filter (\f -> f.checked)
           filteredActivities' = activities |> applyFilters checkedFilters
+          model' = { model | filters = filters'
+                           , filteredActivities = filteredActivities' }
       in
-          ({ model | filters = filters'
-                   , filteredActivities = filteredActivities' }
-           , Cmd.none)
+          (model', Cmd.none)
+
+    Navigate page ->
+      let
+          model' = {model | currentPage = page}
+      in
+          (model', Cmd.none)
 
 
 toggleFilter : Filter -> List Filter -> List Filter

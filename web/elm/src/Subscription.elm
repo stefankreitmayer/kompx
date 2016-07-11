@@ -7,7 +7,7 @@ import Model exposing (..)
 
 type Msg
   = Check Filter
-  | NoOp
+  | Navigate Page
 
 subscriptions : Model -> Sub Msg
 subscriptions model =

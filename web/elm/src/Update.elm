@@ -1,58 +1,40 @@
 module Update exposing (..)
 
 import Model exposing (..)
-import Subscription exposing (..)
+import Model.Page exposing (..)
+import Model.Criterion exposing (..)
+import Msg exposing (..)
 
+import Debug exposing (log)
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update action ({activities,filters} as model) =
+update action ({activities,criteria,currentPage} as model) =
   case action of
 
-    Check filter ->
+    Check criterion option ->
       let
-          filters' = toggleFilter filter filters
-          checkedFilters = filters' |> List.filter (\f -> f.checked)
-          filteredActivities' = activities |> applyFilters checkedFilters
-          model' = { model | filters = filters'
-                           , filteredActivities = filteredActivities' }
+          option' = { option | checked = (not option.checked)}
+          options' = listReplace option option' criterion.options
+          criterion' = { criterion | options = options' }
+          criteria' = replaceCriterion criterion criterion' criteria
+          model' = { model | criteria = criteria'
+                           , currentPage = CriterionPage criterion' }
       in
           (model', Cmd.none)
 
     Navigate page ->
       let
-          model' = {model | currentPage = page}
+          model' = { model | currentPage = page }
       in
           (model', Cmd.none)
 
 
-toggleFilter : Filter -> List Filter -> List Filter
-toggleFilter filter filters =
-  filters
-  |> List.map (\fil -> if fil.tag == filter.tag then (toggled fil) else fil)
+listReplace : a -> a -> List a -> List a
+listReplace xOld xNew xs =
+  xs |> List.map (\x -> if x == xOld then xNew else x)
 
 
-toggled : Filter -> Filter
-toggled filter =
-  { filter | checked = (not filter.checked)}
-
-
-applyFilters : List Filter -> List Activity -> List Activity
-applyFilters filters activities =
-  List.filter (matchesAnyFilter filters) activities
-
-
-matchesAnyFilter : List Filter -> Activity -> Bool
-matchesAnyFilter filters activity =
-  case filters of
-    [] ->
-      False
-    hd::tl ->
-      if matchesFilter hd activity then
-         True
-      else
-         matchesAnyFilter tl activity
-
-
-matchesFilter : Filter -> Activity -> Bool
-matchesFilter filter activity =
-  List.member filter.tag activity.tags
+replaceCriterion : Criterion -> Criterion -> List Criterion -> List Criterion
+replaceCriterion old new criteria =
+  criteria
+  |> List.map (\c -> if c.name == old.name then new else c)

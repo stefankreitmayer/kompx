@@ -5,45 +5,48 @@ import Html.Events exposing (onClick)
 import Html.Attributes exposing (class,classList,disabled)
 
 import Model exposing (..)
-import Subscription exposing (..)
+import Model.Page exposing (..)
+import Model.Criterion exposing (..)
+import Msg exposing (..)
 
 
 view : Model -> Html Msg
-view ({filters,currentPage} as model) =
+view ({criteria,currentPage} as model) =
   let
+      matches = matchingActivities model
       pageContents =
         case currentPage of
-          FilterPage ->
-            [ h2 [] [ Html.text "Kategorien wählen" ]
-            , renderFilters filters
-            , renderResultsCount (List.length model.filteredActivities)
-            , renderForwardNavbutton model
+          CriterionPage criterion ->
+            [ h2 [] [ Html.text criterion.name ]
+            , renderOptions criterion
+            , renderResultsCount (List.length matches)
+            , renderNavbuttons model
             ]
-          Serp ->
-            [ h2 [] [ Html.text "Aufgabe wählen" ]
-            , renderSearchResults model.filteredActivities
-            , renderBackNavbutton model
+          SearchResultsPage ->
+            [ h2 [] [ Html.text "Ergebnisse" ]
+            , renderSearchResults matches
+            , renderNavbuttons model
             ]
   in
       div [] pageContents
 
 
-renderFilters : List Filter -> Html Msg
-renderFilters filters =
-  filters
-  |> List.map renderFilter
-  |> Html.ul [ class "filter-list" ]
+renderOptions : Criterion -> Html Msg
+renderOptions criterion =
+  criterion.options
+  |> List.map (renderOption criterion)
+  |> Html.ul [ class "option-list" ]
 
 
-renderFilter : Filter -> Html Msg
-renderFilter filter =
+renderOption : Criterion -> Option -> Html Msg
+renderOption criterion option =
   li
     []
-    [ div
-      [ classList [ ("filterbutton", True), ("checked", filter.checked) ]
-      , onClick (Check filter)
+    [ button
+      [ classList [ ("optionbutton", True), ("checked", option.checked) ]
+      , onClick (Check criterion option)
       ]
-      [ Html.text filter.tag ]
+      [ Html.text option.name ]
     ]
 
 
@@ -57,30 +60,30 @@ renderResultsCount n =
         [ Html.text message ]
 
 
-renderBackNavbutton : Model -> Html Msg
-renderBackNavbutton model =
-  button
-    [ disabled (not (backNavbuttonEnabled model))
-    , onClick (Navigate FilterPage) ]
-    [ Html.text "Zurück" ]
+renderNavbuttons : Model -> Html Msg
+renderNavbuttons {criteria,currentPage} =
+  div
+    []
+    [ renderNavbutton "Zurück" (previousPage criteria currentPage)
+    , renderNavbutton "Weiter" (nextPage criteria currentPage)
+    ]
 
 
-renderForwardNavbutton : Model -> Html Msg
-renderForwardNavbutton model =
-  button
-    [ disabled (not (forwardNavbuttonEnabled model))
-    , onClick (Navigate Serp) ]
-    [ Html.text "Weiter" ]
+renderNavbutton : String -> Maybe Page -> Html Msg
+renderNavbutton buttonText targetPage =
+  let
+      content = [ Html.text buttonText ]
+  in
+      case targetPage of
+        Nothing ->
+          button
+            [ disabled True ]
+            content
 
-
-backNavbuttonEnabled : Model -> Bool
-backNavbuttonEnabled model =
-  model.currentPage == Serp
-
-
-forwardNavbuttonEnabled : Model -> Bool
-forwardNavbuttonEnabled model =
-  List.length model.filteredActivities > 0
+        Just page ->
+          button
+            [ onClick (Navigate page) ]
+            content
 
 
 renderSearchResults : List Activity -> Html Msg

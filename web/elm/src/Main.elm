@@ -6,7 +6,7 @@ import Html.App as Html
 import Model exposing (Model,initialModel)
 import Update exposing (update)
 import View exposing (view)
-import Subscription exposing (subscriptions)
+import Msg exposing (subscriptions)
 
 
 --------------------------------------------------------------------------- MAIN

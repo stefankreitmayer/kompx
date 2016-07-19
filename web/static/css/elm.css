@@ -1,15 +1,17 @@
-/* FILTER PAGE */
+/* CRITERION PAGE */
 
-ul.filter-list{
+ul.option-list{
   list-style: none;
   padding: 0px;
 }
 
-ul.filter-list li{
+ul.option-list li{
 }
 
-.filterbutton{
+.optionbutton{
+  width: 100%;
   background-color: grey;
+  outline: none;
 }
 
 .checked{

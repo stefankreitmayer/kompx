@@ -8,7 +8,7 @@ use Mix.Config
 # Configures the endpoint
 config :kompax, Kompax.Endpoint,
   url: [host: "localhost"],
-  root: Path.dirname(__DIR__),
+  root: Path.dirname(__DIR__),#remove this line or not? https://gist.github.com/chrismccord/29100e16d3990469c47f851e3142f766
   secret_key_base: "Be1gLTfquJF3xluivT0vuhhe1UpjsLo0w4UxdpnaaUhqvRkIFBkgU36csFeSNhRh",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Kompax.PubSub,

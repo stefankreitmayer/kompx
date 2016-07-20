@@ -42,3 +42,16 @@ listSuccessor xs x =
 listPredecessor : List a -> a -> Maybe a
 listPredecessor xs x =
   listSuccessor (List.reverse xs) x
+
+
+pageIndex : Page -> List Page -> Int -> Int
+pageIndex page pages startIndex =
+  case pages of
+    [] ->
+      -1
+
+    hd::tl ->
+      if hd==page then
+        startIndex
+      else
+        pageIndex page tl (startIndex+1)

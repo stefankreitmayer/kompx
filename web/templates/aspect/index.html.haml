@@ -1,0 +1,21 @@
+%h2 Listing aspects
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Position
+
+      %th
+  %tbody
+    - for aspect <- @aspects do
+      %tr
+      %td= aspect.name
+      %td= aspect.position
+
+      %td.text-right
+        = link "Show", to: aspect_path(@conn, :show, aspect), class: "btn btn-default btn-xs"
+        = link "Edit", to: aspect_path(@conn, :edit, aspect), class: "btn btn-default btn-xs"
+        = link "Delete", to: aspect_path(@conn, :delete, aspect), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+= link "New aspect", to: aspect_path(@conn, :new)

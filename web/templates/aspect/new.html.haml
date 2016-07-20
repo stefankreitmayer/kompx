@@ -1,0 +1,5 @@
+%h2 New aspect
+
+= render "form.html", changeset: @changeset, action: aspect_path(@conn, :create)
+
+= link "Back", to: aspect_path(@conn, :index)

@@ -1,0 +1,15 @@
+%h2 Show aspect
+
+%ul
+
+  %li
+    %strong Name:
+    = @aspect.name
+
+  %li
+    %strong Position:
+    = @aspect.position
+
+
+= link "Edit", to: aspect_path(@conn, :edit, @aspect)
+= link "Back", to: aspect_path(@conn, :index)

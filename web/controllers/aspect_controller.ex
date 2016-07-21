@@ -4,7 +4,8 @@ defmodule Kompax.AspectController do
   alias Kompax.Aspect
 
   def index(conn, _params) do
-    aspects = Repo.all(Aspect)
+    query = from a in Aspect, order_by: a.position
+    aspects = Repo.all(query)
     render(conn, "index.html", aspects: aspects)
   end
 

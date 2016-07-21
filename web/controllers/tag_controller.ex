@@ -34,7 +34,7 @@ defmodule Kompax.TagController do
     changeset = Tag.changeset(tag, tag_params)
 
     case Repo.update(changeset) do
-      {:ok, tag} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Tag updated successfully.")
         |> redirect(to: aspect_path(conn, :show, aspect_id))

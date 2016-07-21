@@ -1,0 +1,5 @@
+%h2 Edit tag
+
+= render "form.html", changeset: @changeset, action: aspect_tag_path(@conn, :update, @tag.aspect_id, @tag)
+
+= link "Back", to: aspect_path(@conn, :show, @tag.aspect_id)

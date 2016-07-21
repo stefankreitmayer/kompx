@@ -8,11 +8,6 @@ defmodule Kompax.SectionController do
 
   plug :scrub_params, "section" when action in [:create, :update]
 
-  def index(conn, _params) do
-    sections = Repo.all(Section)
-    render(conn, "index.html", sections: sections)
-  end
-
   def new(conn, %{"activity_id" => activity_id}) do
     activity = Repo.get!(Activity, activity_id)
     changeset = Section.changeset(%Section{})

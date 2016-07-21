@@ -20,7 +20,9 @@ defmodule Kompax.Router do
       resources "/sections", SectionController, except: [:index, :show]
     end
 
-    resources "/aspects", AspectController
+    resources "/aspects", AspectController do
+      resources "/tags", TagController, except: [:index, :show]
+    end
 
     get "/", PageController, :index
   end

@@ -1,29 +1,29 @@
 module Model.Page exposing (..)
 
-import Model.Criterion exposing (..)
+import Model.Aspect exposing (..)
 
 
 type Page
-  = CriterionPage Criterion
+  = AspectPage Aspect
   | SearchResultsPage
 
 
-allPages : List Criterion -> List Page
-allPages criteria =
+allPages : List Aspect -> List Page
+allPages aspects =
   let
-      criterionPages = List.map CriterionPage criteria
+      aspectPages = List.map AspectPage aspects
   in
-      criterionPages ++ [ SearchResultsPage ]
+      aspectPages ++ [ SearchResultsPage ]
 
 
-previousPage : List Criterion -> Page -> Maybe Page
-previousPage criteria currentPage =
-  listPredecessor (allPages criteria) currentPage
+previousPage : List Aspect -> Page -> Maybe Page
+previousPage aspects currentPage =
+  listPredecessor (allPages aspects) currentPage
 
 
-nextPage : List Criterion -> Page -> Maybe Page
-nextPage criteria currentPage =
-  listSuccessor (allPages criteria) currentPage
+nextPage : List Aspect -> Page -> Maybe Page
+nextPage aspects currentPage =
+  listSuccessor (allPages aspects) currentPage
 
 
 listSuccessor : List a -> a -> Maybe a

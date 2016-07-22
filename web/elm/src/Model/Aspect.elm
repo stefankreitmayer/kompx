@@ -1,6 +1,6 @@
-module Model.Criterion exposing (..)
+module Model.Aspect exposing (..)
 
-type alias Criterion =
+type alias Aspect =
   { name : String
   , options : List Option }
 

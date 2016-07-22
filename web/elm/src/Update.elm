@@ -2,23 +2,23 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Model.Page exposing (..)
-import Model.Criterion exposing (..)
+import Model.Aspect exposing (..)
 import Msg exposing (..)
 
 import Debug exposing (log)
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update action ({activities,criteria,currentPage} as model) =
+update action ({activities,aspects,currentPage} as model) =
   case action of
 
-    Check criterion option ->
+    Check aspect option ->
       let
           option' = { option | checked = (not option.checked)}
-          options' = listReplace option option' criterion.options
-          criterion' = { criterion | options = options' }
-          criteria' = replaceCriterion criterion criterion' criteria
-          model' = { model | criteria = criteria'
-                           , currentPage = CriterionPage criterion' }
+          options' = listReplace option option' aspect.options
+          aspect' = { aspect | options = options' }
+          aspects' = replaceAspect aspect aspect' aspects
+          model' = { model | aspects = aspects'
+                           , currentPage = AspectPage aspect' }
       in
           (model', Cmd.none)
 
@@ -34,7 +34,7 @@ listReplace xOld xNew xs =
   xs |> List.map (\x -> if x == xOld then xNew else x)
 
 
-replaceCriterion : Criterion -> Criterion -> List Criterion -> List Criterion
-replaceCriterion old new criteria =
-  criteria
+replaceAspect : Aspect -> Aspect -> List Aspect -> List Aspect
+replaceAspect old new aspects =
+  aspects
   |> List.map (\c -> if c.name == old.name then new else c)

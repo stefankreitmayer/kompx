@@ -6,19 +6,19 @@ import Html.Attributes exposing (class,classList,disabled,id)
 
 import Model exposing (..)
 import Model.Page exposing (..)
-import Model.Criterion exposing (..)
+import Model.Aspect exposing (..)
 import Msg exposing (..)
 
 
 view : Model -> Html Msg
-view ({criteria,currentPage} as model) =
+view ({aspects,currentPage} as model) =
   let
       matches = matchingActivities model
       pageContents =
         case currentPage of
-          CriterionPage criterion ->
-            [ h2 [] [ Html.text criterion.name ]
-            , renderOptions criterion
+          AspectPage aspect ->
+            [ h2 [] [ Html.text aspect.name ]
+            , renderOptions aspect
             , renderResultsCount (List.length matches)
             , renderPageNav model
             ]
@@ -31,20 +31,20 @@ view ({criteria,currentPage} as model) =
       div [ id "elm-main"] pageContents
 
 
-renderOptions : Criterion -> Html Msg
-renderOptions criterion =
-  criterion.options
-  |> List.map (renderOption criterion)
+renderOptions : Aspect -> Html Msg
+renderOptions aspect =
+  aspect.options
+  |> List.map (renderOption aspect)
   |> Html.ul [ class "elm-options" ]
 
 
-renderOption : Criterion -> Option -> Html Msg
-renderOption criterion option =
+renderOption : Aspect -> Option -> Html Msg
+renderOption aspect option =
   li
     []
     [ button
       [ classList [ ("elm-optionbutton", True), ("elm-checked", option.checked) ]
-      , onClick (Check criterion option)
+      , onClick (Check aspect option)
       ]
       [ Html.text option.name ]
     ]
@@ -68,19 +68,19 @@ renderResultsCount n =
 
 
 renderPageNav : Model -> Html Msg
-renderPageNav ({criteria,currentPage} as model) =
+renderPageNav ({aspects,currentPage} as model) =
   div
     [ id "elm-footer" ]
-    [ renderNavbutton "Zurück" (previousPage criteria currentPage)
+    [ renderNavbutton "Zurück" (previousPage aspects currentPage)
     , renderPageNumber model
-    , renderNavbutton "Weiter" (nextPage criteria currentPage)
+    , renderNavbutton "Weiter" (nextPage aspects currentPage)
     ]
 
 
 renderPageNumber : Model -> Html Msg
 renderPageNumber model =
   let
-      pages = allPages model.criteria
+      pages = allPages model.aspects
       pageCount = pages|> List.length |> toString
       pageNumber = pageIndex model.currentPage pages 1 |> toString
   in

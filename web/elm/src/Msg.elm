@@ -4,11 +4,11 @@ import Html exposing (Html)
 
 import Model exposing (..)
 import Model.Page exposing (..)
-import Model.Criterion exposing (..)
+import Model.Aspect exposing (..)
 
 
 type Msg
-  = Check Criterion Option
+  = Check Aspect Option
   | Navigate Page
 
 subscriptions : Model -> Sub Msg

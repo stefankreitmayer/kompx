@@ -7,6 +7,7 @@ defmodule Kompax.Activity do
     field :published, :boolean, default: false
 
     has_many :sections, Kompax.Section
+    has_many :annotations, Kompax.Annotation
 
     timestamps()
   end

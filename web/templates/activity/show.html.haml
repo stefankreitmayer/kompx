@@ -10,17 +10,32 @@
 
 %h3 Sections
 - for section <- @activity.sections do
-  %hr
-  .row
-    .col-xs-9
-      %h4= section.title
-      %p= render "sectionbody.html", body: section.body
-    .col-xs-3
-      = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
-      = link "Edit", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right"
+  .panel.panel-primary
+    .panel-heading
+      .row
+        .col-xs-9
+          = section.title
+        .col-xs-3
+          = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
+          = link "Edit", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right"
+    .panel-body
+      = render "sectionbody.html", body: section.body
 %p
   = link "New section", to: activity_section_path(@conn, :new, @activity), class: "btn btn-default btn-xs"
 
+%hr
+
+%h3 Aspects
+- for aspect <- @aspects do
+  .panel.panel-default
+    .panel-heading
+      = aspect.name
+    .panel-body
+      %ul.list-group
+        - for tag <- aspect.tags do
+          %li.list-group-item
+            = render "annotation_toggle.html", conn: @conn, activity_id: @activity.id, tag_id: tag.id, class: classForToggle(@activity, tag)
+            = tag.name
 %hr
 
 = link "Back", to: activity_path(@conn, :index)

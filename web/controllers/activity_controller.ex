@@ -3,6 +3,7 @@ defmodule Kompax.ActivityController do
 
   alias Kompax.Activity
   alias Kompax.Section
+  alias Kompax.Aspect
   alias Ecto.Changeset
 
   plug :scrub_params, "activity" when action in [:create, :update]
@@ -31,8 +32,11 @@ defmodule Kompax.ActivityController do
   end
 
   def show(conn, %{"id" => id}) do
-    activity = Repo.get!(Activity, id) |> Repo.preload(:sections)
-    render(conn, "show.html", activity: activity)
+    activity = Repo.get!(Activity, id)
+               |> Repo.preload([:sections, :annotations])
+    aspects = Repo.all(from a in Aspect, order_by: a.position)
+              |> Repo.preload(:tags)
+    render(conn, "show.html", activity: activity, aspects: aspects)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -57,9 +61,6 @@ defmodule Kompax.ActivityController do
 
   def delete(conn, %{"id" => id}) do
     activity = Repo.get!(Activity, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
     Repo.delete!(activity)
 
     conn

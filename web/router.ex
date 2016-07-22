@@ -20,6 +20,8 @@ defmodule Kompax.Router do
       resources "/sections", SectionController, except: [:index, :show]
     end
 
+    post "/toggle_annotation", AnnotationController, :toggle
+
     resources "/aspects", AspectController do
       resources "/tags", TagController, except: [:index, :show]
     end

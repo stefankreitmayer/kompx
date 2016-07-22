@@ -1,0 +1,5 @@
+- form_tag annotation_path(@conn, :toggle) do
+  %input{type: "hidden", name: "activity_id", value: @activity_id}
+  %input{type: "hidden", name: "tag_id", value: @tag_id}
+  %button{type: "submit", class: @class}
+    %span.glyphicon.glyphicon-remove

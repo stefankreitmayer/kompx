@@ -1,4 +1,4 @@
-- form_tag annotation_path(@conn, :toggle) do
+- form_tag annotation_path(@conn, :toggle), class: "annotation-toggle" do
   %input{type: "hidden", name: "activity_id", value: @activity_id}
   %input{type: "hidden", name: "tag_id", value: @tag_id}
   %button{type: "submit", class: @class}

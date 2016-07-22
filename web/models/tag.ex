@@ -5,6 +5,8 @@ defmodule Kompax.Tag do
     field :name, :string
     belongs_to :aspect, Kompax.Aspect
 
+    has_many :annotations, Kompax.Annotation, on_delete: :delete_all
+
     timestamps()
   end
 

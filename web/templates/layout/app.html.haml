@@ -15,7 +15,11 @@
     .container
       %header.header
         %nav(role="navigation")
-          -# %ul.nav.nav-pills.pull-right
+          %ul.nav.nav-pills.pull-right
+            %li
+              = link "Activities", to: activity_path(@conn, :index)
+            %li
+              = link "Aspects", to: aspect_path(@conn, :index)
           -#   - if logged_in?(@conn) do
           -#     %li.logged-in-teacher-name
           -#       = "#{current_teacher(@conn).first} #{current_teacher(@conn).last}"

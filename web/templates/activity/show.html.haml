@@ -27,7 +27,8 @@
 
 %h3 Aspects
 - for aspect <- @aspects do
-  .panel.panel-default
+  .aspect-anchor{id: "aspect-anchor-#{aspect.id}"}
+  .panel.panel-primary.aspect-panel
     .panel-heading
       = aspect.name
     .panel-body

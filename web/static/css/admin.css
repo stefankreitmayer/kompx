@@ -1,0 +1,12 @@
+.annotation-toggle{
+  display: inline-block;
+  margin: 0 20px 0 0;
+}
+
+.aspect-anchor{
+  margin-bottom: 34px;
+}
+
+.aspect-panel{
+  margin-bottom: 0px !important;
+}

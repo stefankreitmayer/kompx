@@ -27,9 +27,9 @@ defmodule Kompax.AspectControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    aspect = Repo.insert! %Aspect{}
+    aspect = Repo.insert! %Aspect{name: "Awesomeness"}
     conn = get conn, aspect_path(conn, :show, aspect)
-    assert html_response(conn, 200) =~ "Show aspect"
+    assert html_response(conn, 200) =~ "Aspect: Awesomeness"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do

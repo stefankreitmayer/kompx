@@ -6,7 +6,7 @@
 
   .form-group
     = label f, :name, class: "control-label"
-    = text_input f, :name, class: "form-control"
+    = text_input f, :name, class: "form-control", autofocus: true, required: true, maxlength: 100
     = error_tag f, :name
 
   .form-group

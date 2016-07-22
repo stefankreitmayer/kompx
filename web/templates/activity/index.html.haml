@@ -18,4 +18,4 @@
       %td.text-right
         = link "Delete", to: activity_path(@conn, :delete, activity), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
 
-= link "New activity", to: activity_path(@conn, :new)
+= link "New activity", to: activity_path(@conn, :new), class: "btn btn-default btn-xs"

@@ -1,13 +1,16 @@
-%h2= "Activity: #{@activity.title}"
-%p
-  %strong Summary:
-  = @activity.summary
-%p
-  %strong Published:
-  = @activity.published
-= link "Edit", to: activity_path(@conn, :edit, @activity), class: "btn btn-default btn-xs"
+.well
+  %h2= "Activity: #{@activity.title}"
+  %p
+    %strong Summary:
+    = @activity.summary
+  %p
+    %strong Published:
+    = @activity.published
+  = link "Edit", to: activity_path(@conn, :edit, @activity), class: "btn btn-default btn-xs"
+
 %h3 Sections
 - for section <- @activity.sections do
+  %hr
   .row
     .col-xs-9
       %h4= section.title
@@ -15,8 +18,8 @@
     .col-xs-3
       = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
       = link "Edit", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right"
-  %hr
-= link "New section", to: activity_section_path(@conn, :new, @activity)
+%p
+  = link "New section", to: activity_section_path(@conn, :new, @activity), class: "btn btn-default btn-xs"
 
 %hr
 

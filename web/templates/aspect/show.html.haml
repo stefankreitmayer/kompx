@@ -1,15 +1,23 @@
-%h2 Show aspect
-
-%ul
-
-  %li
-    %strong Name:
-    = @aspect.name
-
-  %li
+.well
+  %h2= "Aspect: #{@aspect.name}"
+  %p
     %strong Position:
     = @aspect.position
+  = link "Edit", to: aspect_path(@conn, :edit, @aspect), class: "btn btn-default btn-xs"
 
 
-= link "Edit", to: aspect_path(@conn, :edit, @aspect)
+%h3 Tags
+%hr
+- for tag <- @aspect.tags do
+  .row
+    .col-xs-9
+      %h4= tag.name
+    .col-xs-3
+      = link "Delete", to: aspect_tag_path(@conn, :delete, @aspect, tag), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
+      = link "Edit", to: aspect_tag_path(@conn, :edit, @aspect, tag), class: "btn btn-default btn-xs pull-right"
+%p
+  = link "New tag", to: aspect_tag_path(@conn, :new, @aspect), class: "btn btn-default btn-xs"
+
+%hr
+
 = link "Back", to: aspect_path(@conn, :index)

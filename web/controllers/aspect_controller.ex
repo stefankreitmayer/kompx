@@ -28,7 +28,7 @@ defmodule Kompax.AspectController do
   end
 
   def show(conn, %{"id" => id}) do
-    aspect = Repo.get!(Aspect, id)
+    aspect = Repo.get!(Aspect, id) |> Repo.preload(:tags)
     render(conn, "show.html", aspect: aspect)
   end
 

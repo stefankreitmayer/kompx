@@ -3,11 +3,11 @@ module Main exposing (..)
 import Html exposing (Html)
 import Html.App as Html
 
-import Model exposing (Model,initialModel)
+import Model exposing (Model,emptyModel)
 import Update exposing (update)
 import View exposing (view)
 import Msg exposing (subscriptions)
-
+import FetchData exposing (fetchData)
 
 --------------------------------------------------------------------------- MAIN
 
@@ -15,7 +15,7 @@ import Msg exposing (subscriptions)
 main : Program Never
 main =
   Html.program
-  { init = (initialModel, Cmd.none)
+  { init = (emptyModel, fetchData)
   , update = update
   , view = view
   , subscriptions = subscriptions }

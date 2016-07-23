@@ -30,7 +30,9 @@ defmodule Kompax.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Kompax do
-    #   pipe_through :api
-    # end
+  scope "/api", Kompax do
+    pipe_through :api
+
+    get "/fetch", KnowledgebaseController, :fetch
+  end
 end

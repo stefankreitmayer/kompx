@@ -1,6 +1,6 @@
 module Model.Page exposing (..)
 
-import Model.Aspect exposing (..)
+import Model.Knowledgebase.Aspect exposing (..)
 
 
 type Page

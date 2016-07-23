@@ -1,4 +1,4 @@
-module Model.Aspect exposing (..)
+module Model.Knowledgebase.Aspect exposing (..)
 
 type alias Aspect =
   { name : String

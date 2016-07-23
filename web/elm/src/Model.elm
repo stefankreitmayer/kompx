@@ -1,40 +1,31 @@
 module Model exposing (..)
 
+import Model.Knowledgebase exposing (..)
+import Model.Knowledgebase.Activity exposing (..)
+import Model.Knowledgebase.Aspect exposing (..)
 import Model.Page exposing (..)
-import Model.Aspect exposing (..)
+
 import Helpers exposing (..)
 
 
 type alias Model =
-  { activities : List Activity
-  , aspects : List Aspect
+  { knowledgebase : Knowledgebase
   , currentPage : Page }
 
-type alias Activity =
-  { title : String
-  , summary : String
-  , published : Bool
-  , sections : List String
-  , annotations : List String }
+
+emptyModel : Model
+emptyModel =
+  buildModel emptyKnowledgebase
 
 
-initialModel : Model
-initialModel =
-  let
-      activities = []
-      aspects = []
-      firstPage = allPages aspects |> List.head
-  in
-      { activities = activities
-      , aspects = aspects
-      , currentPage =
-          case firstPage of
-            Nothing -> SearchResultsPage
-            Just page -> page
-      }
+buildModel : Knowledgebase -> Model
+buildModel kb =
+  { knowledgebase = kb
+  , currentPage = firstPage kb
+  }
 
 
-matchingActivities : Model -> List Activity
+matchingActivities : Knowledgebase -> List Activity
 matchingActivities {aspects,activities} =
   activities
   |> List.filter (doesTheActivityMatchAllAspects aspects)
@@ -58,3 +49,16 @@ doesTheActivityMatchTheAspect activity {options} =
 doesTheActivityMatchTheOption : Activity -> Option -> Bool
 doesTheActivityMatchTheOption activity option =
   List.member option.name activity.annotations
+
+
+firstPage : Knowledgebase -> Page
+firstPage {aspects} =
+  let
+      head = allPages aspects |> List.head
+  in
+      case head of
+        Nothing ->
+          SearchResultsPage
+
+        Just page ->
+          page

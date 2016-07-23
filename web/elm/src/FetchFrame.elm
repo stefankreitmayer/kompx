@@ -1,4 +1,4 @@
-module FetchData exposing (..)
+module FetchFrame exposing (..)
 
 import Http
 import Json.Decode as Decode exposing (Decoder,(:=))
@@ -8,16 +8,16 @@ import Model.Page exposing (..)
 import Msg exposing (..)
 
 
-fetchData : Cmd Msg
-fetchData =
+fetchFrame : Cmd Msg
+fetchFrame =
   Task.perform FetchFailure FetchSuccess request
 
 
 request : Task Http.Error Int
 request =
-  Http.get knowledgebaseDecoder "http://localhost:4000/api/fetch"
+  Http.get frameDecoder "http://localhost:4000/api/fetch"
 
 
-knowledgebaseDecoder : Decoder Int
-knowledgebaseDecoder =
+frameDecoder : Decoder Int
+frameDecoder =
   "dummy" := Decode.int

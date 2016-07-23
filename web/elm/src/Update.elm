@@ -2,16 +2,16 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Model.Page exposing (..)
-import Model.Knowledgebase.Aspect exposing (..)
+import Model.Frame.Aspect exposing (..)
 import Msg exposing (..)
 
 import Debug exposing (log)
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update action ({knowledgebase,currentPage} as model) =
+update action ({frame,currentPage} as model) =
   let
-      activities = knowledgebase.activities
-      aspects = knowledgebase.aspects
+      activities = frame.activities
+      aspects = frame.aspects
   in
       case action of
 
@@ -21,8 +21,8 @@ update action ({knowledgebase,currentPage} as model) =
               options' = listReplace option option' aspect.options
               aspect' = { aspect | options = options' }
               aspects' = replaceAspect aspect aspect' aspects
-              knowledgebase' = { knowledgebase | aspects = aspects' }
-              model' = { model | knowledgebase = knowledgebase'
+              frame' = { frame | aspects = aspects' }
+              model' = { model | frame = frame'
                                , currentPage = AspectPage aspect' }
           in
               (model', Cmd.none)

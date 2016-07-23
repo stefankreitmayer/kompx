@@ -1,4 +1,4 @@
-module Model.Knowledgebase.Activity exposing (..)
+module Model.Frame.Activity exposing (..)
 
 type alias Activity =
   { title : String

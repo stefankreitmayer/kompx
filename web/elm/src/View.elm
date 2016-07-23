@@ -6,15 +6,15 @@ import Html.Attributes exposing (class,classList,disabled,id)
 
 import Model exposing (..)
 import Model.Page exposing (..)
-import Model.Knowledgebase.Activity exposing (..)
-import Model.Knowledgebase.Aspect exposing (..)
+import Model.Frame.Activity exposing (..)
+import Model.Frame.Aspect exposing (..)
 import Msg exposing (..)
 
 
 view : Model -> Html Msg
-view ({knowledgebase,currentPage} as model) =
+view ({frame,currentPage} as model) =
   let
-      matches = matchingActivities knowledgebase
+      matches = matchingActivities frame
       pageContents =
         case currentPage of
           AspectPage aspect ->
@@ -69,19 +69,19 @@ renderResultsCount n =
 
 
 renderPageNav : Model -> Html Msg
-renderPageNav ({knowledgebase,currentPage} as model) =
+renderPageNav ({frame,currentPage} as model) =
   div
     [ id "elm-footer" ]
-    [ renderNavbutton "Zurück" (previousPage knowledgebase.aspects currentPage)
+    [ renderNavbutton "Zurück" (previousPage frame.aspects currentPage)
     , renderPageNumber model
-    , renderNavbutton "Weiter" (nextPage knowledgebase.aspects currentPage)
+    , renderNavbutton "Weiter" (nextPage frame.aspects currentPage)
     ]
 
 
 renderPageNumber : Model -> Html Msg
-renderPageNumber ({knowledgebase} as model) =
+renderPageNumber ({frame} as model) =
   let
-      pages = allPages knowledgebase.aspects
+      pages = allPages frame.aspects
       pageCount = pages|> List.length |> toString
       pageNumber = pageIndex model.currentPage pages 1 |> toString
   in

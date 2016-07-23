@@ -5,7 +5,7 @@ import Http
 
 import Model exposing (..)
 import Model.Page exposing (..)
-import Model.Knowledgebase.Aspect exposing (..)
+import Model.Frame.Aspect exposing (..)
 
 
 type Msg

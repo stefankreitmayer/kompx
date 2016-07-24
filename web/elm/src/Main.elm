@@ -7,7 +7,7 @@ import Model exposing (Model,emptyModel)
 import Update exposing (update)
 import View exposing (view)
 import Msg exposing (subscriptions)
-import FetchData exposing (fetchData)
+import FetchFrame exposing (fetchFrame)
 
 --------------------------------------------------------------------------- MAIN
 
@@ -15,7 +15,7 @@ import FetchData exposing (fetchData)
 main : Program Never
 main =
   Html.program
-  { init = (emptyModel, fetchData)
+  { init = (emptyModel, fetchFrame)
   , update = update
   , view = view
   , subscriptions = subscriptions }

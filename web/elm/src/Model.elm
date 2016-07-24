@@ -48,7 +48,7 @@ doesTheActivityMatchTheAspect activity {options} =
 
 doesTheActivityMatchTheOption : Activity -> Option -> Bool
 doesTheActivityMatchTheOption activity option =
-  List.member option.name activity.annotations
+  List.member option.tagId activity.tagIds
 
 
 firstPage : Frame -> Page

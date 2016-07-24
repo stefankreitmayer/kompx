@@ -2,7 +2,8 @@ module View exposing (view)
 
 import Html exposing (Html,h2,div,ul,li,button)
 import Html.Events exposing (onClick)
-import Html.Attributes exposing (class,classList,disabled,id)
+import Html.Attributes exposing (class,classList,disabled,id,property)
+import Json.Encode
 
 import Model exposing (..)
 import Model.Page exposing (..)
@@ -26,6 +27,7 @@ view ({frame,currentPage} as model) =
           SearchResultsPage ->
             [ h2 [] [ Html.text "Ergebnisse" ]
             , renderSearchResults matches
+            , renderResultsCount (List.length matches)
             , renderPageNav model
             ]
   in
@@ -116,10 +118,28 @@ renderSearchResults activities =
 
 renderSearchResult : Activity -> Html Msg
 renderSearchResult activity =
-  li
-    []
-    [ div
-      [ class "elm-search-result"
-      ]
-      [ Html.text activity.title ]
-    ]
+  let
+      title = Html.h3 [] [ Html.text activity.title ]
+      summary = Html.p [] [ Html.text activity.summary ]
+      sections = List.map renderSection activity.sections
+      sectionsContainer = Html.div [] sections
+      hr = Html.hr [] []
+  in
+      li
+        []
+        [ div
+          [ class "elm-search-result" ]
+          [ title, summary, sectionsContainer, hr ]
+        ]
+
+
+renderSection : Section -> Html Msg
+renderSection section =
+  let
+      title = Html.h4 [] [ Html.text section.title ]
+      body =
+        Html.span
+          [ property "innerHTML" (Json.Encode.string section.body) ]
+          []
+  in
+      Html.div [] [ title, body ]

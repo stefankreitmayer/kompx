@@ -33,11 +33,11 @@ update action ({frame,currentPage} as model) =
           in
               (model', Cmd.none)
 
-        FetchSuccess dummyInt ->
+        FetchSuccess frame ->
           let
-              dummy = dummyInt |> log "HTTP SUCCESS !!!"
+              model' = buildModel frame
           in
-              (model, Cmd.none)
+              (model', Cmd.none)
 
         FetchFailure error ->
           let

@@ -1,8 +1,12 @@
 module Model.Frame.Activity exposing (..)
 
 type alias Activity =
-  { title : String
+  { id : Int
+  , title : String
   , summary : String
-  , published : Bool
-  , sections : List String
-  , annotations : List String }
+  , sections : List Section
+  , tagIds : List Int }
+
+type alias Section =
+  { title : String
+  , body : String }

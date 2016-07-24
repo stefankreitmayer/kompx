@@ -7,5 +7,6 @@ type alias Aspect =
 
 type alias Option =
   { name : String
+  , tagId : Int
   , checked : Bool }
 

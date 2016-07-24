@@ -1,7 +1,12 @@
 defmodule Kompax.FrameController do
   use Kompax.Web, :controller
 
-  def fetch(conn, _params) do
-    render(conn, "fetch.json", frame: 12345)
+  alias Kompax.Activity
+  alias Kompax.Aspect
+
+  def show(conn, _params) do
+    activities = Repo.all(Activity) |> Repo.preload([:sections, :annotations])
+    aspects = Repo.all(Aspect) |> Repo.preload([:tags])
+    render(conn, "show.json", frame: %{activities: activities, aspects: aspects})
   end
 end

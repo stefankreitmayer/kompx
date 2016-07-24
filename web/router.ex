@@ -33,6 +33,6 @@ defmodule Kompax.Router do
   scope "/api", Kompax do
     pipe_through :api
 
-    get "/fetch", FrameController, :fetch
+    get "/frame", FrameController, :show
   end
 end

@@ -18,7 +18,7 @@ fetchFrame =
 
 request : Task Http.Error Frame
 request =
-  Http.get frameDec "http://localhost:4000/api/frame"
+  Http.get frameDec "/api/frame"
 
 
 frameDec : Decoder Frame

@@ -52,7 +52,7 @@ renderPage ({frame,currentPage} as model) =
           SearchResultsPage ->
             [ resultsCount
             , nav
-            , h2 [] [ Html.text "Ergebnisse" ]
+            , h2 [] [ Html.text "Treffer" ]
             , renderSearchResults matches
             ]
   in
@@ -145,17 +145,15 @@ renderSearchResults activities =
 renderSearchResult : Activity -> Html Msg
 renderSearchResult activity =
   let
-      title = Html.h3 [] [ Html.text activity.title ]
-      summary = Html.p [] [ Html.text activity.summary ]
-      sections = List.map renderSection activity.sections
-      sectionsContainer = Html.div [] sections
+      heading = div [ class "panel-heading" ] [ Html.text activity.title ]
+      summary = div [ class "panel-body" ] [ Html.text activity.summary ]
+      panel = div
+                [ class "panel panel-default aspect-panel elm-search-result" ]
+                [ heading, summary ]
   in
       li
         []
-        [ div
-          [ class "elm-search-result" ]
-          [ title, summary, sectionsContainer ]
-        ]
+        [ panel ]
 
 
 renderSection : Section -> Html Msg

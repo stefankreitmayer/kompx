@@ -13,7 +13,7 @@ body{
 }
 
 #elm-main h2{
-  margin-top: 1em;
+  margin-top: 1.4em;
   text-align: center;
 }
 
@@ -23,13 +23,6 @@ body{
 #elm-main p{
   padding-left: 10px;
   padding-right: 10px;
-}
-
-#elm-main ul.elm-search-results{
-  padding-right: 8px;
-}
-
-ul.elm-search-results{
 }
 
 #elm-results-preview{
@@ -88,7 +81,6 @@ ul.elm-options li{
 
 .elm-optionbutton{
   width: 100%;
-  /* background-color: #34675c; */
   background-color: #257;
   color: rgba(255,255,255,.6);
   outline: none;
@@ -98,7 +90,6 @@ ul.elm-options li{
 }
 
 .elm-checked{
-  /* background-color: #b3c100; */
   background-color: #4cb5f5;
   color: #222;
 }
@@ -115,6 +106,16 @@ ul.elm-options li{
 
 ul.elm-search-results{
   list-style: none;
-  padding: 0px;
+  padding: 0;
+  margin: 0 5px;
 }
 
+ul.elm-search-results li{
+  margin-top: 30px;
+  margin-bottom: 5px;
+  box-shadow: 0px 5px 20px rgba(0, 10, 0, .3);
+}
+
+ul.elm-search-results li .panel-heading{
+  font-weight: 500;
+}

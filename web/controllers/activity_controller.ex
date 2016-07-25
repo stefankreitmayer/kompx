@@ -9,7 +9,7 @@ defmodule Kompax.ActivityController do
   plug :scrub_params, "activity" when action in [:create, :update]
 
   def index(conn, _params) do
-    activities = Repo.all(Activity)
+    activities = (from a in Activity, order_by: a.title) |> Repo.all
     render(conn, "index.html", activities: activities)
   end
 

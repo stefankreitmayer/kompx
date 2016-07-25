@@ -13,25 +13,50 @@ import Msg exposing (..)
 
 
 view : Model -> Html Msg
-view ({frame,currentPage} as model) =
+view ({connectionStatus} as model) =
+  let
+      content = case connectionStatus of
+                    Connecting ->
+                      renderUserMessage "Connecting..."
+
+                    ConnectionOK ->
+                      renderPage model
+
+                    ConnectionError message ->
+                      renderUserMessage message
+  in
+      div [ id "elm-main"] [ content ]
+
+
+renderUserMessage : String -> Html Msg
+renderUserMessage message =
+  div
+    [ class "elm-user-message" ]
+    [ Html.text message ]
+
+
+renderPage : Model -> Html Msg
+renderPage ({frame,currentPage} as model) =
   let
       matches = matchingActivities frame
-      pageContents =
+      resultsCount = renderResultsCount (List.length matches)
+      nav = renderPageNav model
+      pageContent =
         case currentPage of
           AspectPage aspect ->
-            [ renderResultsCount (List.length matches)
-            , renderPageNav model
+            [ resultsCount
+            , nav
             , h2 [] [ Html.text aspect.name ]
             , renderOptions aspect
             ]
           SearchResultsPage ->
-            [ renderResultsCount (List.length matches)
-            , renderPageNav model
+            [ resultsCount
+            , nav
             , h2 [] [ Html.text "Ergebnisse" ]
             , renderSearchResults matches
             ]
   in
-      div [ id "elm-main"] pageContents
+      div [] pageContent
 
 
 renderOptions : Aspect -> Html Msg

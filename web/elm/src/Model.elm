@@ -10,18 +10,25 @@ import Helpers exposing (..)
 
 type alias Model =
   { frame : Frame
-  , currentPage : Page }
+  , currentPage : Page
+  , connectionStatus : ConnectionStatus }
+
+type ConnectionStatus
+  = Connecting
+  | ConnectionOK
+  | ConnectionError String
 
 
-emptyModel : Model
-emptyModel =
-  buildModel emptyFrame
+emptyModel : ConnectionStatus -> Model
+emptyModel connectionStatus =
+  buildModel emptyFrame connectionStatus
 
 
-buildModel : Frame -> Model
-buildModel kb =
-  { frame = kb
-  , currentPage = firstPage kb
+buildModel : Frame -> ConnectionStatus -> Model
+buildModel frame connectionStatus =
+  { frame = frame
+  , currentPage = firstPage frame
+  , connectionStatus = connectionStatus
   }
 
 

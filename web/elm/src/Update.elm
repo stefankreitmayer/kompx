@@ -35,15 +35,18 @@ update action ({frame,currentPage} as model) =
 
         FetchSuccess frame ->
           let
-              model' = buildModel frame
+              model' = buildModel frame ConnectionOK
           in
               (model', Cmd.none)
 
-        FetchFailure error ->
+        FetchFailure httpError ->
           let
-              debugDummy = error |> log "HTTP ERROR"
+              connectionStatus =
+                ConnectionError ("Connection Error! "++(toString httpError))
+              model' = emptyModel connectionStatus
           in
-              (emptyModel, Cmd.none)
+              (model', Cmd.none)
+
 
 listReplace : a -> a -> List a -> List a
 listReplace xOld xNew xs =

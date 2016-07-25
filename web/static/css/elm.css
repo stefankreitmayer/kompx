@@ -102,6 +102,13 @@ ul.elm-options li{
   color: #222;
 }
 
+.elm-user-message{
+  position: fixed;
+  top: 50%;
+  left: 0;
+  text-align: center;
+  width: 100%;
+}
 
 /* SEARCH RESULTS PAGE */
 

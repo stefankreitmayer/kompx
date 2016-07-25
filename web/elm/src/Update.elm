@@ -2,6 +2,7 @@ module Update exposing (..)
 
 import Model exposing (..)
 import Model.Page exposing (..)
+import Model.Frame.Activity exposing (..)
 import Model.Frame.Aspect exposing (..)
 import Msg exposing (..)
 
@@ -30,6 +31,13 @@ update action ({frame,currentPage} as model) =
         Navigate page ->
           let
               model' = { model | currentPage = page }
+          in
+              (model', Cmd.none)
+
+        ChooseActivity activity ->
+          let
+              model' = { model | chosenActivity = Just activity
+                               , currentPage = ChosenActivityPage }
           in
               (model', Cmd.none)
 

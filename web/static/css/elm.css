@@ -32,6 +32,7 @@ body{
   text-align: center;
   box-shadow: 0px 5px 20px rgba(0, 40, 0, .8);
   color: rgba(0,0,0,.8);
+  font-weight: 500;
   -webkit-transition: background-color 1s;
   transition: background-color 1s;
 }
@@ -102,7 +103,7 @@ ul.elm-options li{
   width: 100%;
 }
 
-/* SEARCH RESULTS PAGE */
+/* Search results page */
 
 ul.elm-search-results{
   list-style: none;
@@ -118,4 +119,10 @@ ul.elm-search-results li{
 
 ul.elm-search-results li .panel-heading{
   font-weight: 500;
+}
+
+/* Chosen Activity page */
+
+.elm-chosen-activity{
+  margin-top: 50px;
 }

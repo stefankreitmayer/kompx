@@ -36,7 +36,7 @@ renderUserMessage message =
 
 
 renderPage : Model -> Html Msg
-renderPage ({frame,currentPage} as model) =
+renderPage ({frame,currentPage,chosenActivity} as model) =
   let
       matches = matchingActivities frame
       resultsCount = renderResultsCount (List.length matches)
@@ -54,6 +54,11 @@ renderPage ({frame,currentPage} as model) =
             , nav
             , h2 [] [ Html.text "Treffer" ]
             , renderSearchResults matches
+            ]
+          ChosenActivityPage ->
+            [ renderChosenActivityTitle chosenActivity
+            , renderChosenActivity chosenActivity
+            , renderPageNav model
             ]
   in
       div [] pageContent
@@ -97,12 +102,21 @@ renderResultsCount n =
 
 renderPageNav : Model -> Html Msg
 renderPageNav ({frame,currentPage} as model) =
-  div
-    [ id "elm-header" ]
-    [ renderNavbutton "left" (previousPage frame.aspects currentPage)
-    , renderPageNumber model
-    , renderNavbutton "right" (nextPage frame.aspects currentPage)
-    ]
+  let
+      prev = previousPage frame.aspects currentPage
+      next = nextPage frame.aspects currentPage
+      rightButton = if isChosenActivityPage next then
+                      renderHelpButton
+                    else
+                      renderNavbutton "right" next
+      leftButton = renderNavbutton "left" prev
+  in
+      div
+        [ id "elm-header" ]
+        [ leftButton
+        , renderPageNumber model
+        , rightButton
+        ]
 
 
 renderPageNumber : Model -> Html Msg
@@ -148,7 +162,8 @@ renderSearchResult activity =
       heading = div [ class "panel-heading" ] [ Html.text activity.title ]
       summary = div [ class "panel-body" ] [ Html.text activity.summary ]
       panel = div
-                [ class "panel panel-default aspect-panel elm-search-result" ]
+                [ class "panel panel-default aspect-panel elm-search-result"
+                , onClick (ChooseActivity activity) ]
                 [ heading, summary ]
   in
       li
@@ -156,13 +171,47 @@ renderSearchResult activity =
         [ panel ]
 
 
+renderChosenActivityTitle : Maybe Activity -> Html Msg
+renderChosenActivityTitle activity =
+  case activity of
+    Nothing ->
+      Html.text "Ein Fehler ist aufgetreten"
+
+    Just activity ->
+      div
+        [ id "elm-results-preview"
+        , Html.Attributes.style [ ("background", "#49b") ] ]
+        [ Html.text activity.title ]
+
+
+renderChosenActivity : Maybe Activity -> Html Msg
+renderChosenActivity activity =
+  case activity of
+    Nothing ->
+      div [] []
+
+    Just activity ->
+      let
+          sections = List.map renderSection activity.sections
+          sectionsContainer = Html.div [ class "elm-chosen-activity" ] sections
+      in
+          sectionsContainer
+
+
 renderSection : Section -> Html Msg
 renderSection section =
   let
-      title = Html.h4 [] [ Html.text section.title ]
+      title = Html.h3 [] [ Html.text section.title ]
       body =
         Html.span
           [ property "innerHTML" (Json.Encode.string section.body) ]
           []
   in
       Html.div [] [ title, body ]
+
+
+renderHelpButton : Html Msg
+renderHelpButton =
+  button
+    [ class "glyphicon glyphicon-info-sign" ]
+    []

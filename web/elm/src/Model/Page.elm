@@ -1,11 +1,13 @@
 module Model.Page exposing (..)
 
+import Model.Frame.Activity exposing (..)
 import Model.Frame.Aspect exposing (..)
 
 
 type Page
   = AspectPage Aspect
   | SearchResultsPage
+  | ChosenActivityPage
 
 
 allPages : List Aspect -> List Page
@@ -13,7 +15,7 @@ allPages aspects =
   let
       aspectPages = List.map AspectPage aspects
   in
-      aspectPages ++ [ SearchResultsPage ]
+      aspectPages ++ [ SearchResultsPage, ChosenActivityPage ]
 
 
 previousPage : List Aspect -> Page -> Maybe Page
@@ -55,3 +57,13 @@ pageIndex page pages startIndex =
         startIndex
       else
         pageIndex page tl (startIndex+1)
+
+
+isChosenActivityPage : Maybe Page -> Bool
+isChosenActivityPage page =
+  case page of
+    Nothing ->
+      False
+
+    Just p ->
+      p == ChosenActivityPage

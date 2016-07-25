@@ -11,6 +11,7 @@ import Helpers exposing (..)
 type alias Model =
   { frame : Frame
   , currentPage : Page
+  , chosenActivity : Maybe Activity
   , connectionStatus : ConnectionStatus }
 
 type ConnectionStatus
@@ -28,6 +29,7 @@ buildModel : Frame -> ConnectionStatus -> Model
 buildModel frame connectionStatus =
   { frame = frame
   , currentPage = firstPage frame
+  , chosenActivity = Nothing
   , connectionStatus = connectionStatus
   }
 

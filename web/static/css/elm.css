@@ -1,5 +1,6 @@
-html,body{
-  background: #d0d8e0 !important;
+html.elm-layout,
+html.elm-layout body{
+  background: #d6dce6 !important;
 }
 
 body{

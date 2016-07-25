@@ -12,6 +12,7 @@ type alias Model =
   { frame : Frame
   , currentPage : Page
   , chosenActivity : Maybe Activity
+  , helpVisible : Bool
   , connectionStatus : ConnectionStatus }
 
 type ConnectionStatus
@@ -30,6 +31,7 @@ buildModel frame connectionStatus =
   { frame = frame
   , currentPage = firstPage frame
   , chosenActivity = Nothing
+  , helpVisible = False
   , connectionStatus = connectionStatus
   }
 

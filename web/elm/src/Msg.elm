@@ -14,6 +14,7 @@ type Msg
   = Check Aspect Option
   | Navigate Page
   | ChooseActivity Activity
+  | ToggleHelp
   | FetchSuccess Frame
   | FetchFailure Http.Error
 

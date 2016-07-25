@@ -56,14 +56,18 @@ body{
   color: white;
   text-align: center;
   height: 80px;
-  width: 33.33%;
+  width: 25%;
   position: fixed;
   top: 0;
 }
 
 #elm-page-number{
-  left: 33.33%;
+  left: 25%;
   padding-top: 24px;
+}
+
+.elm-help-button{
+  left: 50%;
 }
 
 #elm-header button:last-of-type{
@@ -102,6 +106,18 @@ ul.elm-options li{
   text-align: center;
   width: 100%;
 }
+
+.elm-help{
+  margin-top: -60px;
+  -webkit-transition: margin-top 1s;
+  transition: margin-top 1s;
+}
+
+.elm-help.visible{
+  margin-top: 10px;
+}
+
+
 
 /* Search results page */
 

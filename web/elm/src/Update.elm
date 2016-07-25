@@ -41,6 +41,13 @@ update action ({frame,currentPage} as model) =
           in
               (model', Cmd.none)
 
+        ToggleHelp ->
+          let
+              helpVisible = not model.helpVisible
+              model' = { model | helpVisible = helpVisible }
+          in
+              (model', Cmd.none)
+
         FetchSuccess frame ->
           let
               model' = buildModel frame ConnectionOK

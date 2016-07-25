@@ -5,7 +5,7 @@ defmodule Kompax.FrameView do
   alias Kompax.AspectView
 
   def render("show.json", %{frame: frame}) do
-    IO.inspect %{frame: render_one(frame, Kompax.FrameView, "frame.json")}
+    # IO.inspect %{frame: render_one(frame, Kompax.FrameView, "frame.json")}
     %{frame: render_one(frame, Kompax.FrameView, "frame.json")}
   end
 

@@ -2,7 +2,7 @@ module View exposing (view)
 
 import Html exposing (Html,h2,div,ul,li,button)
 import Html.Events exposing (onClick)
-import Html.Attributes exposing (class,classList,id,property)
+import Html.Attributes exposing (class,classList,id,property,attribute)
 import Json.Encode
 
 import Model exposing (..)
@@ -46,19 +46,22 @@ renderPage ({frame,currentPage,chosenActivity} as model) =
           AspectPage aspect ->
             [ resultsCount
             , nav
+            , renderHelp model
             , h2 [] [ Html.text aspect.name ]
             , renderOptions aspect
             ]
           SearchResultsPage ->
             [ resultsCount
             , nav
-            , h2 [] [ Html.text "Treffer" ]
+            , renderHelp model
+            -- , h2 [] [ Html.text "Passende Aufgaben" ]
             , renderSearchResults matches
             ]
           ChosenActivityPage ->
             [ renderChosenActivityTitle chosenActivity
+            , nav
+            , renderHelp model
             , renderChosenActivity chosenActivity
-            , renderPageNav model
             ]
   in
       div [] pageContent
@@ -86,7 +89,7 @@ renderOption aspect option =
 renderResultsCount : Int -> Html Msg
 renderResultsCount n =
   let
-      message = (toString n) ++ " Treffer"
+      message = (toString n) ++ " passende gefunden"
       color = if n>3 then
                   "#eb5"
               else if n>0 then
@@ -106,7 +109,7 @@ renderPageNav ({frame,currentPage} as model) =
       prev = previousPage frame.aspects currentPage
       next = nextPage frame.aspects currentPage
       rightButton = if isChosenActivityPage next then
-                      renderHelpButton
+                       div [] []
                     else
                       renderNavbutton "right" next
       leftButton = renderNavbutton "left" prev
@@ -115,6 +118,7 @@ renderPageNav ({frame,currentPage} as model) =
         [ id "elm-header" ]
         [ leftButton
         , renderPageNumber model
+        , renderHelpButton
         , rightButton
         ]
 
@@ -213,5 +217,31 @@ renderSection section =
 renderHelpButton : Html Msg
 renderHelpButton =
   button
-    [ class "glyphicon glyphicon-info-sign" ]
+    [ onClick ToggleHelp
+    , class "glyphicon glyphicon-question-sign elm-help-button" ]
     []
+
+
+renderHelp : Model -> Html Msg
+renderHelp model =
+  let
+      anyMatches = matchingActivities model.frame |> List.isEmpty |> not
+      enabled = if model.helpVisible then " visible" else ""
+      classString = "alert alert-info elm-help" ++ enabled
+      message =
+        case model.currentPage of
+          AspectPage _ ->
+            "Mehrfach-Auswahl = \"oder\""
+
+          SearchResultsPage ->
+            if anyMatches then
+              "Bitte eine Aufgabe auswählen"
+            else
+              "Bitte Suchkriterien erweitern"
+
+          ChosenActivityPage ->
+            "Detailansicht. Zurück mit <"
+  in
+      div
+        [ class classString ]
+        [ Html.text message ]

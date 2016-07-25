@@ -1,14 +1,12 @@
 html,body{
-  background: white !important;
+  background: #d0d8e0 !important;
 }
 
 body{
-  padding-bottom: 100px;
+  padding-top: 100px;
 }
 
 #elm-main,body,html{
-  /* background-color: #4cb5f5; */
-  background-color: white;
   color: #222;
   font-size: 110%;
 }
@@ -18,27 +16,54 @@ body{
   text-align: center;
 }
 
+#elm-main h2,
+#elm-main h3,
+#elm-main h4,
+#elm-main p{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#elm-main ul.elm-search-results{
+  padding-right: 8px;
+}
+
+ul.elm-search-results{
+}
+
 #elm-results-preview{
   width: 100%;
   position: fixed;
-  bottom: 80px;
+  top: 80px;
   text-align: center;
   box-shadow: 0px 5px 20px rgba(0, 40, 0, .8);
   color: rgba(0,0,0,.8);
+  -webkit-transition: background-color 1s;
+  transition: background-color 1s;
 }
 
-#elm-footer button{
+#elm-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #202830;
+  height: 80px;
+  width: 100%;
+}
+
+#elm-header button{
   outline: none;
   border: none;
 }
 
-#elm-footer button,#elm-page-number{
-  background: white;
+#elm-header button,#elm-page-number{
+  background-color: transparent;
+  color: white;
   text-align: center;
   height: 80px;
   width: 33.33%;
   position: fixed;
-  bottom: 0;
+  top: 0;
 }
 
 #elm-page-number{
@@ -46,7 +71,7 @@ body{
   padding-top: 24px;
 }
 
-#elm-footer button:last-of-type{
+#elm-header button:last-of-type{
   right: 0;
 }
 
@@ -68,7 +93,7 @@ ul.elm-options li{
   outline: none;
   border: none;
   margin: 1px 0;
-  padding: 1em;
+  padding: .8em;
 }
 
 .elm-checked{

@@ -2,7 +2,7 @@ module View exposing (view)
 
 import Html exposing (Html,h2,div,ul,li,button)
 import Html.Events exposing (onClick)
-import Html.Attributes exposing (class,classList,disabled,id,property)
+import Html.Attributes exposing (class,classList,id,property)
 import Json.Encode
 
 import Model exposing (..)
@@ -19,16 +19,16 @@ view ({frame,currentPage} as model) =
       pageContents =
         case currentPage of
           AspectPage aspect ->
-            [ h2 [] [ Html.text aspect.name ]
-            , renderOptions aspect
-            , renderResultsCount (List.length matches)
+            [ renderResultsCount (List.length matches)
             , renderPageNav model
+            , h2 [] [ Html.text aspect.name ]
+            , renderOptions aspect
             ]
           SearchResultsPage ->
-            [ h2 [] [ Html.text "Ergebnisse" ]
-            , renderSearchResults matches
-            , renderResultsCount (List.length matches)
+            [ renderResultsCount (List.length matches)
             , renderPageNav model
+            , h2 [] [ Html.text "Ergebnisse" ]
+            , renderSearchResults matches
             ]
   in
       div [ id "elm-main"] pageContents
@@ -73,10 +73,10 @@ renderResultsCount n =
 renderPageNav : Model -> Html Msg
 renderPageNav ({frame,currentPage} as model) =
   div
-    [ id "elm-footer" ]
-    [ renderNavbutton "Zurück" (previousPage frame.aspects currentPage)
+    [ id "elm-header" ]
+    [ renderNavbutton "left" (previousPage frame.aspects currentPage)
     , renderPageNumber model
-    , renderNavbutton "Weiter" (nextPage frame.aspects currentPage)
+    , renderNavbutton "right" (nextPage frame.aspects currentPage)
     ]
 
 
@@ -93,20 +93,21 @@ renderPageNumber ({frame} as model) =
 
 
 renderNavbutton : String -> Maybe Page -> Html Msg
-renderNavbutton buttonText targetPage =
+renderNavbutton direction targetPage =
   let
-      content = [ Html.text buttonText ]
+      classString = "glyphicon glyphicon-chevron-"++direction
   in
       case targetPage of
         Nothing ->
           button
-            [ disabled True ]
-            content
+            [ class (classString++" hidden") ]
+            []
 
         Just page ->
           button
-            [ onClick (Navigate page) ]
-            content
+            [ class classString
+            , onClick (Navigate page) ]
+            []
 
 
 renderSearchResults : List Activity -> Html Msg
@@ -123,13 +124,12 @@ renderSearchResult activity =
       summary = Html.p [] [ Html.text activity.summary ]
       sections = List.map renderSection activity.sections
       sectionsContainer = Html.div [] sections
-      hr = Html.hr [] []
   in
       li
         []
         [ div
           [ class "elm-search-result" ]
-          [ title, summary, sectionsContainer, hr ]
+          [ title, summary, sectionsContainer ]
         ]
 
 

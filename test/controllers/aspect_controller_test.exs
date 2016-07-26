@@ -7,7 +7,7 @@ defmodule Kompax.AspectControllerTest do
 
   test "lists all entries on index", %{conn: conn} do
     conn = get conn, aspect_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing aspects"
+    assert html_response(conn, 200) =~ "All Aspects"
   end
 
   test "renders form for new resources", %{conn: conn} do

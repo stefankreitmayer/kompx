@@ -13,10 +13,19 @@
   .panel.panel-primary
     .panel-heading
       = section.title
-      = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
-      = link "Edit", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right"
+      = link to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right" do
+        .glyphicon.glyphicon-remove
+        = "Delete"
+      - end
+      = link to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right" do
+        .glyphicon.glyphicon-pencil
+        = "Edit"
+      - end
       - if section != List.last(@sections) do
-        = button "Move down", to: activity_section_path(@conn, :move, @activity, section), method: :patch, class: "btn btn-default btn-xs pull-right"
+        = link to: activity_section_path(@conn, :move, @activity, section), method: :patch, class: "btn btn-default btn-xs pull-right" do
+          .glyphicon.glyphicon-arrow-down
+          = "Move down"
+        - end
     .panel-body
       = render "sectionbody.html", body: section.body
 %p
@@ -34,7 +43,7 @@
       %ul.list-group
         - for tag <- aspect.tags do
           %li.list-group-item
-            = render "annotation_toggle.html", conn: @conn, activity_id: @activity.id, tag_id: tag.id, class: classForToggle(@activity, tag)
+            = render "annotation_toggle.html", conn: @conn, activity_id: @activity.id, tag_id: tag.id, class: toggleButtonClass(@activity, tag), icon: toggleButtonIcon(@activity, tag)
             = tag.name
 %hr
 

@@ -1,8 +1,0 @@
-%h2
-  = "Section:"
-  = link @section.activity.title, to: activity_path(@conn, :show, @section.activity)
-  = " / #{@section.title}"
-%hr
-%p
-%p
-  = link "Back", to: activity_path(@conn, :show, @section.activity)

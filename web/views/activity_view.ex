@@ -4,11 +4,19 @@ defmodule Kompax.ActivityView do
   alias Kompax.Moekdown
   alias Kompax.SectionView
 
-  def classForToggle(activity, tag) do
+  def toggleButtonClass(activity, tag) do
     if Enum.find(activity.annotations, fn(a) -> a.tag_id==tag.id end) do
-      "btn btn-lg btn-success"
+      "btn btn-lg btn-primary"
     else
-      "btn btn-lg btn-danger"
+      "btn btn-lg btn-default"
+    end
+  end
+
+  def toggleButtonIcon(activity, tag) do
+    if Enum.find(activity.annotations, fn(a) -> a.tag_id==tag.id end) do
+      "glyphicon glyphicon-ok"
+    else
+      "glyphicon glyphicon-minus invisible"
     end
   end
 

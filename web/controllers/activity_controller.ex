@@ -74,7 +74,10 @@ defmodule Kompax.ActivityController do
   end
 
   defp default_sections do
-    ~w(Ziele Material Schritte)
-    |> Enum.map(fn(title) -> %Section{title: title, body: "TODO"} end)
+    [
+      %Section{title: "Ziele", body: "TODO", position: 1},
+      %Section{title: "Material", body: "TODO", position: 2},
+      %Section{title: "Schritte", body: "TODO", position: 3}
+    ]
   end
 end

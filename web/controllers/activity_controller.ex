@@ -22,10 +22,10 @@ defmodule Kompax.ActivityController do
     changeset = Activity.changeset(%Activity{}, activity_params)
     |> Changeset.put_assoc(:sections, default_sections)
     case Repo.insert(changeset) do
-      {:ok, _activity} ->
+      {:ok, activity} ->
         conn
         |> put_flash(:info, "Activity created successfully.")
-        |> redirect(to: activity_path(conn, :index))
+        |> redirect(to: activity_path(conn, :show, activity))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

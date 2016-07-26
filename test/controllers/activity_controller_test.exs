@@ -17,8 +17,8 @@ defmodule Kompax.ActivityControllerTest do
 
   test "creates activity with default sections and redirects when data is valid", %{conn: conn} do
     conn = post conn, activity_path(conn, :create), activity: @valid_attrs
-    assert redirected_to(conn) == activity_path(conn, :index)
     activity = Repo.get_by(Activity, @valid_attrs)
+    assert redirected_to(conn) == activity_path(conn, :show, activity)
     assert activity
     default_sections = Repo.preload(activity, :sections).sections
     titles = Enum.map(default_sections, fn(section) -> section.title end)

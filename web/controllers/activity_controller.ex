@@ -4,6 +4,7 @@ defmodule Kompax.ActivityController do
   alias Kompax.Activity
   alias Kompax.Section
   alias Kompax.Aspect
+  alias Kompax.Tag
   alias Ecto.Changeset
 
   plug :scrub_params, "activity" when action in [:create, :update]
@@ -38,7 +39,8 @@ defmodule Kompax.ActivityController do
      where: s.activity_id == ^activity.id,
      order_by: s.position) |> Repo.all
     aspects = (from a in Aspect,
-     order_by: a.position) |> Repo.all |> Repo.preload(:tags)
+     order_by: a.position) |> Repo.all
+                           |> Repo.preload(tags: (from t in Tag, order_by: [asc: t.name]))
     render(conn, "show.html", activity: activity, aspects: aspects, sections: sections)
   end
 

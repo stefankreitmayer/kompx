@@ -2,6 +2,7 @@ defmodule Kompax.AspectController do
   use Kompax.Web, :controller
 
   alias Kompax.Aspect
+  alias Kompax.Tag
 
   def index(conn, _params) do
     query = from a in Aspect, order_by: a.position
@@ -28,7 +29,8 @@ defmodule Kompax.AspectController do
   end
 
   def show(conn, %{"id" => id}) do
-    aspect = Repo.get!(Aspect, id) |> Repo.preload(:tags)
+    aspect = Repo.get!(Aspect, id)
+              |> Repo.preload(tags: (from t in Tag, order_by: [asc: t.name]))
     render(conn, "show.html", aspect: aspect)
   end
 

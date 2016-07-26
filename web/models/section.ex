@@ -20,7 +20,7 @@ defmodule Kompax.Section do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, ~w(title body activity_id))
+    |> cast(params, ~w(title body activity_id position))
     |> validate_required(~w(title body)a)
   end
 end

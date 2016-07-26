@@ -33,10 +33,13 @@ defmodule Kompax.ActivityController do
 
   def show(conn, %{"id" => id}) do
     activity = Repo.get!(Activity, id)
-               |> Repo.preload([:sections, :annotations])
-    aspects = Repo.all(from a in Aspect, order_by: a.position)
-              |> Repo.preload(:tags)
-    render(conn, "show.html", activity: activity, aspects: aspects)
+               |> Repo.preload([:annotations])
+    sections = (from s in Section,
+     where: s.activity_id == ^activity.id,
+     order_by: s.position) |> Repo.all
+    aspects = (from a in Aspect,
+     order_by: a.position) |> Repo.all |> Repo.preload(:tags)
+    render(conn, "show.html", activity: activity, aspects: aspects, sections: sections)
   end
 
   def edit(conn, %{"id" => id}) do

@@ -18,6 +18,7 @@ defmodule Kompax.Router do
 
     resources "/activities", ActivityController do
       resources "/sections", SectionController, except: [:index, :show]
+      patch "/sections/move/:id", SectionController, :move
     end
 
     post "/toggle_annotation", AnnotationController, :toggle

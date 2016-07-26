@@ -10,3 +10,7 @@
 .aspect-panel{
   margin-bottom: 0px !important;
 }
+
+.panel-heading .pull-right{
+  margin-left: 10px;
+}

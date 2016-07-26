@@ -2,7 +2,6 @@ defmodule Kompax.ActivityView do
   use Kompax.Web, :view
 
   alias Kompax.Moekdown
-  alias Kompax.Annotation
   alias Kompax.SectionView
 
   def classForToggle(activity, tag) do

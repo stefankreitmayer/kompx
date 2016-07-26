@@ -60,4 +60,43 @@ defmodule Kompax.SectionControllerTest do
     assert redirected_to(conn) == activity_path(conn, :show, activity)
     refute Repo.get(Section, section.id)
   end
+
+  test "assigns ascending positions to new sections and moves them by swapping", %{conn: conn, activity: activity} do
+    post conn, activity_section_path(conn, :create, activity), section: Map.put(@valid_attrs, :title, "a")
+    post conn, activity_section_path(conn, :create, activity), section: Map.put(@valid_attrs, :title, "b")
+    post conn, activity_section_path(conn, :create, activity), section: Map.put(@valid_attrs, :title, "c")
+    a = Repo.get_by(Section, %{title: "a"})
+    b = Repo.get_by(Section, %{title: "b"})
+    c = Repo.get_by(Section, %{title: "c"})
+    assert 1==a.position
+    assert 2==b.position
+    assert 3==c.position
+    patch conn, activity_section_path(conn, :move, activity, a)
+    a = Repo.get!(Section, a.id)
+    b = Repo.get!(Section, b.id)
+    c = Repo.get!(Section, c.id)
+    assert 1==b.position
+    assert 2==a.position
+    assert 3==c.position
+    patch conn, activity_section_path(conn, :move, activity, a)
+    a = Repo.get!(Section, a.id)
+    b = Repo.get!(Section, b.id)
+    c = Repo.get!(Section, c.id)
+    assert 1==b.position
+    assert 2==c.position
+    assert 3==a.position
+  end
+
+  test "trying to move the last section has no effect", %{conn: conn, activity: activity} do
+    a = Repo.insert! %Section{activity_id: activity.id, position: 1}
+    b = Repo.insert! %Section{activity_id: activity.id, position: 2}
+    c = Repo.insert! %Section{activity_id: activity.id, position: 3}
+    put conn, activity_section_path(conn, :move, activity, c), section: @valid_attrs
+    a = Repo.get!(Section, a.id)
+    b = Repo.get!(Section, b.id)
+    c = Repo.get!(Section, c.id)
+    assert 1==a.position
+    assert 2==b.position
+    assert 3==c.position
+  end
 end

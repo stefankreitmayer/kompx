@@ -8,16 +8,15 @@
     = @activity.published
   = link "Edit", to: activity_path(@conn, :edit, @activity), class: "btn btn-default btn-xs"
 
-%h3 Sections
-- for section <- @activity.sections do
+%h3#sections Sections
+- for section <- @sections do
   .panel.panel-primary
     .panel-heading
-      .row
-        .col-xs-9
-          = section.title
-        .col-xs-3
-          = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
-          = link "Edit", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right"
+      = section.title
+      = link "Delete", to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
+      = link "Edit", to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right"
+      - if section != List.last(@sections) do
+        = button "Move down", to: activity_section_path(@conn, :move, @activity, section), method: :patch, class: "btn btn-default btn-xs pull-right"
     .panel-body
       = render "sectionbody.html", body: section.body
 %p

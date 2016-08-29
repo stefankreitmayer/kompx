@@ -57,8 +57,6 @@ defmodule Kompax.AspectController do
   def delete(conn, %{"id" => id}) do
     aspect = Repo.get!(Aspect, id)
 
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
     Repo.delete!(aspect)
 
     conn

@@ -4,7 +4,7 @@ defmodule Kompax.Aspect do
   schema "aspects" do
     field :name, :string
     field :position, :integer
-    has_many :tags, Kompax.Tag
+    has_many :tags, Kompax.Tag, on_delete: :delete_all
 
     timestamps()
   end

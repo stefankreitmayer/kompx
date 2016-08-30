@@ -64,7 +64,7 @@ renderPage ({frame,currentPage,chosenActivity} as model) =
             , renderChosenActivity chosenActivity
             ]
   in
-      div [] pageContent
+      div [ id "elm-page" ] pageContent
 
 
 renderOptions : Aspect -> Html Msg

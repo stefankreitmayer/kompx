@@ -10,7 +10,7 @@
 
 %h3#sections Sections
 - for section <- @sections do
-  .panel.panel-primary
+  .panel.panel-primary.section-panel
     .panel-heading
       = section.title
       = link to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right" do

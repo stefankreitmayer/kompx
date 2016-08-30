@@ -26,4 +26,11 @@ defmodule Kompax.MoekdownTest do
   # test "sub-bullets and then non-bullet" do
   #   assert Moekdown.html("food\n*veggies\n**carrot\n**potato\nrainbow") == "<p>food<ul><li>veggies</li><li><ul><li>carrot</li><li>potato</li></ul></li><li>rainbow</li></ul></p>"
   # end
+
+  test "image url" do
+    assert Moekdown.html("http://example.com/cat.jpg") == "<img src='http://example.com/cat.jpg'>"
+    assert Moekdown.html("http://example.com/cat.JPG") == "<img src='http://example.com/cat.JPG'>"
+    assert Moekdown.html("http://example.com/cat.png") == "<img src='http://example.com/cat.png'>"
+    assert Moekdown.html("http://example.com/cat.jpeg") == "<img src='http://example.com/cat.jpeg'>"
+  end
 end

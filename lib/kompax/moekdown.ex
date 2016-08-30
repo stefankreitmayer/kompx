@@ -12,6 +12,8 @@ defmodule Kompax.Moekdown do
       line =~ ~r/\A\*/ ->
         tail = String.replace_prefix(line, "*","")
         "<ul style='margin-left: -8px; list-style-type:square'><li>#{tail}</li></ul>"
+      line =~ ~r/^http.*(jpg|jpeg|png)/i ->
+        "<img src='#{line}'>"
       true ->
         "<p>#{line}</p>"
     end

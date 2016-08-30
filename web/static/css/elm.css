@@ -5,6 +5,8 @@ html.elm-layout body{
 
 body{
   padding-top: 100px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 #elm-main,body,html{
@@ -141,4 +143,10 @@ ul.elm-search-results li .panel-heading{
 
 .elm-chosen-activity{
   margin-top: 50px;
+}
+
+.elm-chosen-activity img{
+  margin: 10px;
+  max-width: 95%;
+  display: block;
 }

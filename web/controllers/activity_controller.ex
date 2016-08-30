@@ -77,7 +77,7 @@ defmodule Kompax.ActivityController do
     [
       %Section{title: "Ziele", body: "TODO", position: 1},
       %Section{title: "Material", body: "TODO", position: 2},
-      %Section{title: "Schritte", body: "TODO", position: 3}
+      %Section{title: "Unterrichtsschritte", body: "TODO", position: 3}
     ]
   end
 end

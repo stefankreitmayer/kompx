@@ -24,7 +24,7 @@ defmodule Kompax.ActivityControllerTest do
     titles = Enum.map(default_sections, fn(section) -> section.title end)
     assert(Enum.member? titles,"Ziele")
     assert(Enum.member? titles,"Material")
-    assert(Enum.member? titles,"Schritte")
+    assert(Enum.member? titles,"Unterrichtsschritte")
     default_sections |> Enum.map(fn(section) -> assert section.body=="TODO" end)
   end
 

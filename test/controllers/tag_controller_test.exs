@@ -60,4 +60,43 @@ defmodule Kompax.TagControllerTest do
     assert redirected_to(conn) == aspect_path(conn, :show, aspect)
     refute Repo.get(Tag, tag.id)
   end
+
+  test "assigns ascending positions to new tags and moves them by swapping", %{conn: conn, aspect: aspect} do
+    post conn, aspect_tag_path(conn, :create, aspect), tag: Map.put(@valid_attrs, :name, "a")
+    post conn, aspect_tag_path(conn, :create, aspect), tag: Map.put(@valid_attrs, :name, "b")
+    post conn, aspect_tag_path(conn, :create, aspect), tag: Map.put(@valid_attrs, :name, "c")
+    a = Repo.get_by(Tag, %{name: "a"})
+    b = Repo.get_by(Tag, %{name: "b"})
+    c = Repo.get_by(Tag, %{name: "c"})
+    assert 1==a.position
+    assert 2==b.position
+    assert 3==c.position
+    patch conn, aspect_tag_path(conn, :move, aspect, a)
+    a = Repo.get!(Tag, a.id)
+    b = Repo.get!(Tag, b.id)
+    c = Repo.get!(Tag, c.id)
+    assert 1==b.position
+    assert 2==a.position
+    assert 3==c.position
+    patch conn, aspect_tag_path(conn, :move, aspect, a)
+    a = Repo.get!(Tag, a.id)
+    b = Repo.get!(Tag, b.id)
+    c = Repo.get!(Tag, c.id)
+    assert 1==b.position
+    assert 2==c.position
+    assert 3==a.position
+  end
+
+  test "trying to move the last tag has no effect", %{conn: conn, aspect: aspect} do
+    a = Repo.insert! %Tag{aspect_id: aspect.id, position: 1}
+    b = Repo.insert! %Tag{aspect_id: aspect.id, position: 2}
+    c = Repo.insert! %Tag{aspect_id: aspect.id, position: 3}
+    put conn, aspect_tag_path(conn, :move, aspect, c), tag: @valid_attrs
+    a = Repo.get!(Tag, a.id)
+    b = Repo.get!(Tag, b.id)
+    c = Repo.get!(Tag, c.id)
+    assert 1==a.position
+    assert 2==b.position
+    assert 3==c.position
+  end
 end

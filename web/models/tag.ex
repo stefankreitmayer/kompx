@@ -3,6 +3,7 @@ defmodule Kompax.Tag do
 
   schema "tags" do
     field :name, :string
+    field :position, :integer
     belongs_to :aspect, Kompax.Aspect
 
     has_many :annotations, Kompax.Annotation, on_delete: :delete_all
@@ -15,9 +16,8 @@ defmodule Kompax.Tag do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :aspect_id])
+    |> cast(params, [:name, :aspect_id, :position])
     |> validate_required([:name])
     |> validate_required([:aspect_id])
-    |> unique_constraint(:name)
   end
 end

@@ -11,7 +11,7 @@ defmodule Kompax.FrameController do
               |> Repo.preload(sections: (from s in Section, order_by: [asc: s.position]))
               |> Repo.preload(:annotations)
     aspects = Repo.all(Aspect)
-              |> Repo.preload(tags: (from t in Tag, order_by: [asc: t.name]))
+              |> Repo.preload(tags: (from t in Tag, order_by: [asc: t.position]))
     render(conn, "show.json", frame: %{activities: activities, aspects: aspects})
   end
 end

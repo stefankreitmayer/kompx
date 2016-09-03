@@ -25,6 +25,7 @@ defmodule Kompax.Router do
 
     resources "/aspects", AspectController do
       resources "/tags", TagController, except: [:index, :show]
+      patch "/tags/move/:id", TagController, :move
     end
 
     get "/", PageController, :index

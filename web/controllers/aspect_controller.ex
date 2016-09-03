@@ -30,7 +30,7 @@ defmodule Kompax.AspectController do
 
   def show(conn, %{"id" => id}) do
     aspect = Repo.get!(Aspect, id)
-              |> Repo.preload(tags: (from t in Tag, order_by: [asc: t.name]))
+              |> Repo.preload(tags: (from t in Tag, order_by: [asc: t.position]))
     render(conn, "show.html", aspect: aspect)
   end
 

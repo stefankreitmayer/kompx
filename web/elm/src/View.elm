@@ -82,7 +82,8 @@ renderOption aspect option =
       [ classList [ ("elm-optionbutton", True), ("elm-checked", option.checked) ]
       , onClick (Check aspect option)
       ]
-      [ Html.text option.name ]
+      [ Html.span [ class (if option.checked then "glyphicon glyphicon-check" else "glyphicon glyphicon-unchecked") ] []
+      , Html.text option.name ]
     ]
 
 

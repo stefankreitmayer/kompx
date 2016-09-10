@@ -88,6 +88,7 @@ ul.elm-options li{
 
 .elm-optionbutton{
   width: 100%;
+  text-align: left;
   background-color: #257;
   color: rgba(255,255,255,.6);
   outline: none;
@@ -99,6 +100,10 @@ ul.elm-options li{
 .elm-checked{
   background-color: #4cb5f5;
   color: #222;
+}
+
+.elm-optionbutton .glyphicon{
+  margin-right: .8em;
 }
 
 .elm-user-message{

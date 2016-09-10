@@ -144,6 +144,12 @@ ul.elm-search-results li .panel-heading{
   font-weight: 500;
 }
 
+.read-more{
+  text-align: right;
+  padding-bottom: .5em;
+  padding-right: .55em;
+}
+
 /* Chosen Activity page */
 
 .elm-chosen-activity{

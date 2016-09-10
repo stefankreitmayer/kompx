@@ -166,10 +166,14 @@ renderSearchResult activity =
   let
       heading = div [ class "panel-heading" ] [ Html.text activity.title ]
       summary = div [ class "panel-body" ] [ Html.text activity.summary ]
+      readMoreButton =
+        div
+          [ class "read-more" ]
+          [ Html.a [] [ Html.text "Mehr lesen »" ] ]
       panel = div
                 [ class "panel panel-default aspect-panel elm-search-result"
                 , onClick (ChooseActivity activity) ]
-                [ heading, summary ]
+                [ heading, summary, readMoreButton ]
   in
       li
         []

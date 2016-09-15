@@ -17,3 +17,7 @@ config :kompax, Kompax.Repo,
   database: "kompax_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Reduce encryption in tests to improve speed
+config :comeonin, :bcrypt_log_rounds, 4
+config :comeonin, :pbkdf2_rounds, 1

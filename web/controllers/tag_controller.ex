@@ -4,7 +4,6 @@ defmodule Kompax.TagController do
   alias Kompax.Tag
   alias Kompax.Aspect
 
-  import Ecto
   alias Ecto.Changeset
 
   def new(conn, %{"aspect_id" => aspect_id}) do

@@ -36,6 +36,7 @@ defmodule Kompax.Web do
 
       import Kompax.Router.Helpers
       import Kompax.Gettext
+      import Kompax.TeacherAuthentication, only: [authenticate_teacher: 2]
     end
   end
 

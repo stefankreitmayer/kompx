@@ -5,8 +5,8 @@ defmodule Kompax.ActivityController do
   alias Kompax.Section
   alias Kompax.Aspect
   alias Kompax.Tag
-  alias Ecto.Changeset
 
+  plug :authenticate_teacher
   plug :scrub_params, "activity" when action in [:create, :update]
 
   def index(conn, _params) do
@@ -21,7 +21,7 @@ defmodule Kompax.ActivityController do
 
   def create(conn, %{"activity" => activity_params}) do
     changeset = Activity.changeset(%Activity{}, activity_params)
-    |> Changeset.put_assoc(:sections, default_sections)
+    |> Ecto.Changeset.put_assoc(:sections, default_sections)
     case Repo.insert(changeset) do
       {:ok, activity} ->
         conn

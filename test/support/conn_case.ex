@@ -41,4 +41,9 @@ defmodule Kompax.ConnCase do
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
+
+  def with_current_teacher(conn, teacher) do
+    conn
+    |> Plug.Conn.assign(:current_teacher, teacher)
+  end
 end

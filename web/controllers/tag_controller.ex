@@ -1,10 +1,11 @@
 defmodule Kompax.TagController do
   use Kompax.Web, :controller
 
+  alias Ecto.Changeset
   alias Kompax.Tag
   alias Kompax.Aspect
 
-  alias Ecto.Changeset
+  plug :authenticate_teacher
 
   def new(conn, %{"aspect_id" => aspect_id}) do
     changeset = Tag.changeset(%Tag{})

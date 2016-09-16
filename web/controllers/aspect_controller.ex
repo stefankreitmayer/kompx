@@ -4,6 +4,8 @@ defmodule Kompax.AspectController do
   alias Kompax.Aspect
   alias Kompax.Tag
 
+  plug :authenticate_teacher
+
   def index(conn, _params) do
     query = from a in Aspect, order_by: a.position
     aspects = Repo.all(query)

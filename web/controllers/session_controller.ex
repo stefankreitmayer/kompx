@@ -1,8 +1,8 @@
 defmodule Kompax.SessionController do
   use Kompax.Web, :controller
 
-  alias Kompax.TeacherSession
-  alias Kompax.Teacher
+  alias Kompax.UserSession
+  alias Kompax.User
 
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
@@ -13,10 +13,10 @@ defmodule Kompax.SessionController do
   end
 
   def create(conn, %{"email" => email, "password" => password}) do
-    teacher = Repo.get_by(Teacher, email: email)
-    if teacher && checkpw(password, teacher.password_hash) do
+    user = Repo.get_by(User, email: email)
+    if user && checkpw(password, user.password_hash) do
       conn
-      |> TeacherSession.login(teacher)
+      |> UserSession.login(user)
     else
       dummy_checkpw
       conn
@@ -25,7 +25,7 @@ defmodule Kompax.SessionController do
 
   def delete(conn, _params) do
     conn
-    |> TeacherSession.logout
+    |> UserSession.logout
     |> redirect(to: page_path(conn, :index))
   end
 end

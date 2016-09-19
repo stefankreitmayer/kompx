@@ -1,10 +1,10 @@
-defmodule Kompax.TeacherFactory do
+defmodule Kompax.UserFactory do
 
-  alias Kompax.Teacher
+  alias Kompax.User
   alias Kompax.Repo
 
-  def create_teacher do
-    Teacher.changeset(%Teacher{}, %{email: "foo@bar.com", password: "s3cr3t"})
+  def create_user do
+    User.changeset(%User{}, %{email: "foo@bar.com", password: "s3cr3t"})
     |> Repo.insert!
   end
 end

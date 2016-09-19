@@ -1,6 +1,6 @@
-defmodule Kompax.TeacherAuthentication do
-  def authenticate_teacher(conn, _opts) do
-    if Kompax.TeacherSession.current_teacher(conn) do
+defmodule Kompax.UserAuthentication do
+  def authenticate_user(conn, _opts) do
+    if Kompax.UserSession.current_user(conn) do
       conn
     else
       conn

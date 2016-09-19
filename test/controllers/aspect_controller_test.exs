@@ -2,74 +2,74 @@ defmodule Kompax.AspectControllerTest do
   use Kompax.ConnCase
 
   alias Kompax.Aspect
-  alias Kompax.TeacherFactory
+  alias Kompax.UserFactory
 
-  import Kompax.ConnCase, only: [with_current_teacher: 2]
+  import Kompax.ConnCase, only: [with_current_user: 2]
 
   @valid_attrs %{name: "some content", position: 42}
   @invalid_attrs %{}
 
   setup do
     conn = build_conn()
-    {:ok, conn: conn, teacher: TeacherFactory.create_teacher}
+    {:ok, conn: conn, user: UserFactory.create_user}
   end
 
   describe "when logged in" do
-    test "lists all entries on index", %{conn: conn, teacher: teacher} do
-      conn = conn |> with_current_teacher(teacher) |> get(aspect_path(conn, :index))
+    test "lists all entries on index", %{conn: conn, user: user} do
+      conn = conn |> with_current_user(user) |> get(aspect_path(conn, :index))
       assert html_response(conn, 200) =~ "All Aspects"
     end
 
-    test "renders form for new resources", %{conn: conn, teacher: teacher} do
-      conn = conn |> with_current_teacher(teacher) |> get(aspect_path(conn, :new))
+    test "renders form for new resources", %{conn: conn, user: user} do
+      conn = conn |> with_current_user(user) |> get(aspect_path(conn, :new))
       assert html_response(conn, 200) =~ "New aspect"
     end
 
-    test "creates resource and redirects when data is valid", %{conn: conn, teacher: teacher} do
-      conn = conn |> with_current_teacher(teacher) |> post(aspect_path(conn, :create), aspect: @valid_attrs)
+    test "creates resource and redirects when data is valid", %{conn: conn, user: user} do
+      conn = conn |> with_current_user(user) |> post(aspect_path(conn, :create), aspect: @valid_attrs)
       assert redirected_to(conn) == aspect_path(conn, :index)
       assert Repo.get_by(Aspect, @valid_attrs)
     end
 
-    test "does not create resource and renders errors when data is invalid", %{conn: conn, teacher: teacher} do
-      conn = conn |> with_current_teacher(teacher) |> post(aspect_path(conn, :create), aspect: @invalid_attrs)
+    test "does not create resource and renders errors when data is invalid", %{conn: conn, user: user} do
+      conn = conn |> with_current_user(user) |> post(aspect_path(conn, :create), aspect: @invalid_attrs)
       assert html_response(conn, 200) =~ "New aspect"
     end
 
-    test "shows chosen resource", %{conn: conn, teacher: teacher} do
+    test "shows chosen resource", %{conn: conn, user: user} do
       aspect = Repo.insert! %Aspect{name: "Awesomeness"}
-      conn = conn |> with_current_teacher(teacher) |> get(aspect_path(conn, :show, aspect))
+      conn = conn |> with_current_user(user) |> get(aspect_path(conn, :show, aspect))
       assert html_response(conn, 200) =~ "Aspect: Awesomeness"
     end
 
-    test "renders page not found when id is nonexistent", %{conn: conn, teacher: teacher} do
+    test "renders page not found when id is nonexistent", %{conn: conn, user: user} do
       assert_error_sent 404, fn ->
-        conn |> with_current_teacher(teacher) |> get(aspect_path(:show, -1))
+        conn |> with_current_user(user) |> get(aspect_path(:show, -1))
       end
     end
 
-    test "renders form for editing chosen resource", %{conn: conn, teacher: teacher} do
+    test "renders form for editing chosen resource", %{conn: conn, user: user} do
       aspect = Repo.insert! %Aspect{}
-      conn = conn |> with_current_teacher(teacher) |> get(aspect_path(conn, :edit, aspect))
+      conn = conn |> with_current_user(user) |> get(aspect_path(conn, :edit, aspect))
       assert html_response(conn, 200) =~ "Edit aspect"
     end
 
-    test "updates chosen resource and redirects when data is valid", %{conn: conn, teacher: teacher} do
+    test "updates chosen resource and redirects when data is valid", %{conn: conn, user: user} do
       aspect = Repo.insert! %Aspect{}
-      conn = conn |> with_current_teacher(teacher) |> put(aspect_path(conn, :update, aspect), aspect: @valid_attrs)
+      conn = conn |> with_current_user(user) |> put(aspect_path(conn, :update, aspect), aspect: @valid_attrs)
       assert redirected_to(conn) == aspect_path(conn, :show, aspect)
       assert Repo.get_by(Aspect, @valid_attrs)
     end
 
-    test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, teacher: teacher} do
+    test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, user: user} do
       aspect = Repo.insert! %Aspect{}
-      conn = conn |> with_current_teacher(teacher) |> put(aspect_path(conn, :update, aspect), aspect: @invalid_attrs)
+      conn = conn |> with_current_user(user) |> put(aspect_path(conn, :update, aspect), aspect: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit aspect"
     end
 
-    test "deletes chosen resource", %{conn: conn, teacher: teacher} do
+    test "deletes chosen resource", %{conn: conn, user: user} do
       aspect = Repo.insert! %Aspect{}
-      conn = conn |> with_current_teacher(teacher) |> delete(aspect_path(conn, :delete, aspect))
+      conn = conn |> with_current_user(user) |> delete(aspect_path(conn, :delete, aspect))
       assert redirected_to(conn) == aspect_path(conn, :index)
       refute Repo.get(Aspect, aspect.id)
     end

@@ -6,7 +6,7 @@ defmodule Kompax.ActivityController do
   alias Kompax.Aspect
   alias Kompax.Tag
 
-  plug :authenticate_teacher
+  plug :authenticate_user
   plug :scrub_params, "activity" when action in [:create, :update]
 
   def index(conn, _params) do

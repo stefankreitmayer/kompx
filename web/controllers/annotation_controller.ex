@@ -6,7 +6,7 @@ defmodule Kompax.AnnotationController do
   alias Kompax.Activity
   alias Kompax.Util
 
-  plug :authenticate_teacher
+  plug :authenticate_user
 
   def toggle(conn, %{"activity_id" => activity_id, "tag_id" => tag_id}) do
     activity = Repo.get(Activity, activity_id)

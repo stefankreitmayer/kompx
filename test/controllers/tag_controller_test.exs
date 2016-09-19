@@ -3,9 +3,9 @@ defmodule Kompax.TagControllerTest do
 
   alias Kompax.Tag
   alias Kompax.Aspect
-  alias Kompax.TeacherFactory
+  alias Kompax.UserFactory
 
-  import Kompax.ConnCase, only: [with_current_teacher: 2]
+  import Kompax.ConnCase, only: [with_current_user: 2]
 
   @valid_attrs %{name: "some content"}
   @invalid_attrs %{}
@@ -13,7 +13,7 @@ defmodule Kompax.TagControllerTest do
   setup do
     aspect = create_aspect
     conn = build_conn()
-    {:ok, conn: conn, aspect: aspect, teacher: TeacherFactory.create_teacher}
+    {:ok, conn: conn, aspect: aspect, user: UserFactory.create_user}
   end
 
   defp create_aspect do
@@ -23,66 +23,66 @@ defmodule Kompax.TagControllerTest do
 
 
   describe "when logged in" do
-    test "renders form for new resources", %{conn: conn, aspect: aspect, teacher: teacher} do
-      conn = conn |> with_current_teacher(teacher) |> get(aspect_tag_path(conn, :new, aspect))
+    test "renders form for new resources", %{conn: conn, aspect: aspect, user: user} do
+      conn = conn |> with_current_user(user) |> get(aspect_tag_path(conn, :new, aspect))
       assert html_response(conn, 200) =~ "New tag"
     end
 
-    test "creates resource and redirects when data is valid", %{conn: conn, aspect: aspect, teacher: teacher} do
-      conn = conn |> with_current_teacher(teacher) |> post(aspect_tag_path(conn, :create, aspect), tag: @valid_attrs)
+    test "creates resource and redirects when data is valid", %{conn: conn, aspect: aspect, user: user} do
+      conn = conn |> with_current_user(user) |> post(aspect_tag_path(conn, :create, aspect), tag: @valid_attrs)
       assert redirected_to(conn) == aspect_path(conn, :show, aspect)
       assert Repo.get_by(Tag, @valid_attrs)
     end
 
-    test "does not create resource and renders errors when data is invalid", %{conn: conn, aspect: aspect, teacher: teacher} do
-      conn = conn |> with_current_teacher(teacher) |> post(aspect_tag_path(conn, :create, aspect), tag: @invalid_attrs)
+    test "does not create resource and renders errors when data is invalid", %{conn: conn, aspect: aspect, user: user} do
+      conn = conn |> with_current_user(user) |> post(aspect_tag_path(conn, :create, aspect), tag: @invalid_attrs)
       assert html_response(conn, 200) =~ "New tag"
     end
 
-    test "renders form for editing chosen resource", %{conn: conn, aspect: aspect, teacher: teacher} do
+    test "renders form for editing chosen resource", %{conn: conn, aspect: aspect, user: user} do
       tag = build_assoc(aspect, :tags) |> Repo.insert!
-      conn = conn |> with_current_teacher(teacher) |> get(aspect_tag_path(conn, :edit, aspect, tag))
+      conn = conn |> with_current_user(user) |> get(aspect_tag_path(conn, :edit, aspect, tag))
       assert html_response(conn, 200) =~ "Edit tag"
     end
 
-    test "updates chosen resource and redirects when data is valid", %{conn: conn, aspect: aspect, teacher: teacher} do
+    test "updates chosen resource and redirects when data is valid", %{conn: conn, aspect: aspect, user: user} do
       tag = build_assoc(aspect, :tags) |> Repo.insert!
-      conn = conn |> with_current_teacher(teacher) |> put(aspect_tag_path(conn, :update, aspect, tag), tag: @valid_attrs)
+      conn = conn |> with_current_user(user) |> put(aspect_tag_path(conn, :update, aspect, tag), tag: @valid_attrs)
       assert redirected_to(conn) == aspect_path(conn, :show, aspect)
       assert Repo.get_by(Tag, @valid_attrs)
     end
 
-    test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, aspect: aspect, teacher: teacher} do
+    test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, aspect: aspect, user: user} do
       tag = build_assoc(aspect, :tags) |> Repo.insert!
-      conn = conn |> with_current_teacher(teacher) |> put(aspect_tag_path(conn, :update, aspect, tag), tag: @invalid_attrs)
+      conn = conn |> with_current_user(user) |> put(aspect_tag_path(conn, :update, aspect, tag), tag: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit tag"
     end
 
-    test "deletes chosen resource", %{conn: conn, aspect: aspect, teacher: teacher} do
+    test "deletes chosen resource", %{conn: conn, aspect: aspect, user: user} do
       tag = build_assoc(aspect, :tags) |> Repo.insert!
-      conn = conn |> with_current_teacher(teacher) |> delete(aspect_tag_path(conn, :delete, aspect, tag))
+      conn = conn |> with_current_user(user) |> delete(aspect_tag_path(conn, :delete, aspect, tag))
       assert redirected_to(conn) == aspect_path(conn, :show, aspect)
       refute Repo.get(Tag, tag.id)
     end
 
-    test "assigns ascending positions to new tags and moves them by swapping", %{conn: conn, aspect: aspect, teacher: teacher} do
-      conn |> with_current_teacher(teacher) |> post(aspect_tag_path(conn, :create, aspect), tag: Map.put(@valid_attrs, :name, "a"))
-      conn |> with_current_teacher(teacher) |> post(aspect_tag_path(conn, :create, aspect), tag: Map.put(@valid_attrs, :name, "b"))
-      conn |> with_current_teacher(teacher) |> post(aspect_tag_path(conn, :create, aspect), tag: Map.put(@valid_attrs, :name, "c"))
+    test "assigns ascending positions to new tags and moves them by swapping", %{conn: conn, aspect: aspect, user: user} do
+      conn |> with_current_user(user) |> post(aspect_tag_path(conn, :create, aspect), tag: Map.put(@valid_attrs, :name, "a"))
+      conn |> with_current_user(user) |> post(aspect_tag_path(conn, :create, aspect), tag: Map.put(@valid_attrs, :name, "b"))
+      conn |> with_current_user(user) |> post(aspect_tag_path(conn, :create, aspect), tag: Map.put(@valid_attrs, :name, "c"))
       a = Repo.get_by(Tag, %{name: "a"})
       b = Repo.get_by(Tag, %{name: "b"})
       c = Repo.get_by(Tag, %{name: "c"})
       assert 1==a.position
       assert 2==b.position
       assert 3==c.position
-      conn |> with_current_teacher(teacher) |> patch(aspect_tag_path(conn, :move, aspect, a))
+      conn |> with_current_user(user) |> patch(aspect_tag_path(conn, :move, aspect, a))
       a = Repo.get!(Tag, a.id)
       b = Repo.get!(Tag, b.id)
       c = Repo.get!(Tag, c.id)
       assert 1==b.position
       assert 2==a.position
       assert 3==c.position
-      conn |> with_current_teacher(teacher) |> patch(aspect_tag_path(conn, :move, aspect, a))
+      conn |> with_current_user(user) |> patch(aspect_tag_path(conn, :move, aspect, a))
       a = Repo.get!(Tag, a.id)
       b = Repo.get!(Tag, b.id)
       c = Repo.get!(Tag, c.id)
@@ -91,11 +91,11 @@ defmodule Kompax.TagControllerTest do
       assert 3==a.position
     end
 
-    test "trying to move the last tag has no effect", %{conn: conn, aspect: aspect, teacher: teacher} do
+    test "trying to move the last tag has no effect", %{conn: conn, aspect: aspect, user: user} do
       a = Repo.insert! %Tag{aspect_id: aspect.id, position: 1}
       b = Repo.insert! %Tag{aspect_id: aspect.id, position: 2}
       c = Repo.insert! %Tag{aspect_id: aspect.id, position: 3}
-      conn |> with_current_teacher(teacher) |> put(aspect_tag_path(conn, :move, aspect, c), tag: @valid_attrs)
+      conn |> with_current_user(user) |> put(aspect_tag_path(conn, :move, aspect, c), tag: @valid_attrs)
       a = Repo.get!(Tag, a.id)
       b = Repo.get!(Tag, b.id)
       c = Repo.get!(Tag, c.id)

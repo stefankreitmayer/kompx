@@ -1,7 +1,7 @@
-defmodule Kompax.Teacher do
+defmodule Kompax.User do
   use Kompax.Web, :model
 
-  schema "teachers" do
+  schema "users" do
     field :email, :string, null: false
     field :password_hash, :string, null: false
     field :password, :string, virtual: true

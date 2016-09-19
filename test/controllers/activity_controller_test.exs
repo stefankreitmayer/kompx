@@ -2,9 +2,9 @@ defmodule Kompax.ActivityControllerTest do
   use Kompax.ConnCase
 
   alias Kompax.Activity
-  alias Kompax.TeacherFactory
+  alias Kompax.UserFactory
 
-  import Kompax.ConnCase, only: [with_current_teacher: 2]
+  import Kompax.ConnCase, only: [with_current_user: 2]
 
 
   @valid_attrs %{published: true, summary: "some content", title: "some content"}
@@ -12,30 +12,30 @@ defmodule Kompax.ActivityControllerTest do
 
   setup do
     conn = build_conn()
-    {:ok, conn: conn, teacher: TeacherFactory.create_teacher}
+    {:ok, conn: conn, user: UserFactory.create_user}
   end
 
   describe "when logged in" do
-    test "lists all entries on index", %{conn: conn, teacher: teacher} do
+    test "lists all entries on index", %{conn: conn, user: user} do
       conn =
         conn
-        |> with_current_teacher(teacher)
+        |> with_current_user(user)
         |> get(activity_path(conn, :index))
       assert html_response(conn, 200) =~ "All Activities"
     end
 
-    test "renders form for new resources", %{conn: conn, teacher: teacher} do
+    test "renders form for new resources", %{conn: conn, user: user} do
       conn =
         conn
-        |> with_current_teacher(teacher)
+        |> with_current_user(user)
         |> get(activity_path(conn, :new))
       assert html_response(conn, 200) =~ "New activity"
     end
 
-    test "creates activity with default sections and redirects when data is valid", %{conn: conn, teacher: teacher} do
+    test "creates activity with default sections and redirects when data is valid", %{conn: conn, user: user} do
       conn =
         conn
-        |> with_current_teacher(teacher)
+        |> with_current_user(user)
         |> post(activity_path(conn, :create), activity: @valid_attrs)
       activity = Repo.get_by(Activity, @valid_attrs)
       assert redirected_to(conn) == activity_path(conn, :show, activity)
@@ -48,63 +48,63 @@ defmodule Kompax.ActivityControllerTest do
       default_sections |> Enum.map(fn(section) -> assert section.body=="TODO" end)
     end
 
-    test "does not create resource and renders errors when data is invalid", %{conn: conn, teacher: teacher} do
+    test "does not create resource and renders errors when data is invalid", %{conn: conn, user: user} do
       conn =
         conn
-        |> with_current_teacher(teacher)
+        |> with_current_user(user)
         |> post(activity_path(conn, :create), activity: @invalid_attrs)
       assert html_response(conn, 200) =~ "New activity"
     end
 
-    test "shows chosen resource", %{conn: conn, teacher: teacher} do
+    test "shows chosen resource", %{conn: conn, user: user} do
       activity = Repo.insert! %Activity{title: "Jump for joy"}
       conn = conn
-              |> with_current_teacher(teacher)
+              |> with_current_user(user)
               |> get(activity_path(conn, :show, activity))
       assert html_response(conn, 200) =~ "Activity: Jump for joy"
     end
 
-    test "renders page not found when id is nonexistent", %{conn: conn, teacher: teacher} do
+    test "renders page not found when id is nonexistent", %{conn: conn, user: user} do
       assert_error_sent 404, fn ->
         conn
-        |> with_current_teacher(teacher)
+        |> with_current_user(user)
         |> get(activity_path(conn, :show, -1))
       end
     end
 
-    test "renders form for editing chosen resource", %{conn: conn, teacher: teacher} do
+    test "renders form for editing chosen resource", %{conn: conn, user: user} do
       activity = Repo.insert! %Activity{}
       conn =
         conn
-        |> with_current_teacher(teacher)
+        |> with_current_user(user)
         |> get(activity_path(conn, :edit, activity))
       assert html_response(conn, 200) =~ "Edit activity"
     end
 
-    test "updates chosen resource and redirects when data is valid", %{conn: conn, teacher: teacher} do
+    test "updates chosen resource and redirects when data is valid", %{conn: conn, user: user} do
       activity = Repo.insert! %Activity{}
       conn =
         conn
-        |> with_current_teacher(teacher)
+        |> with_current_user(user)
         |> put(activity_path(conn, :update, activity), activity: @valid_attrs)
       assert redirected_to(conn) == activity_path(conn, :show, activity)
       assert Repo.get_by(Activity, @valid_attrs)
     end
 
-    test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, teacher: teacher} do
+    test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, user: user} do
       activity = Repo.insert! %Activity{}
       conn =
         conn
-        |> with_current_teacher(teacher)
+        |> with_current_user(user)
         |> put(activity_path(conn, :update, activity), activity: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit activity"
     end
 
-    test "deletes chosen resource", %{conn: conn, teacher: teacher} do
+    test "deletes chosen resource", %{conn: conn, user: user} do
       activity = Repo.insert! %Activity{}
       conn =
         conn
-        |> with_current_teacher(teacher)
+        |> with_current_user(user)
         |> delete(activity_path(conn, :delete, activity))
       assert redirected_to(conn) == activity_path(conn, :index)
       refute Repo.get(Activity, activity.id)

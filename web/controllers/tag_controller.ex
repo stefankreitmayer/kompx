@@ -5,7 +5,7 @@ defmodule Kompax.TagController do
   alias Kompax.Tag
   alias Kompax.Aspect
 
-  plug :authenticate_teacher
+  plug :authenticate_user
 
   def new(conn, %{"aspect_id" => aspect_id}) do
     changeset = Tag.changeset(%Tag{})

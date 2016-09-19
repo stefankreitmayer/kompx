@@ -4,9 +4,9 @@ defmodule Kompax.AnnotationControllerTest do
   alias Kompax.Annotation
   alias Kompax.Tag
   alias Kompax.Activity
-  alias Kompax.TeacherFactory
+  alias Kompax.UserFactory
 
-  import Kompax.ConnCase, only: [with_current_teacher: 2]
+  import Kompax.ConnCase, only: [with_current_user: 2]
 
   setup do
     conn = build_conn()
@@ -18,17 +18,17 @@ defmodule Kompax.AnnotationControllerTest do
      tag: tag}
   end
 
-  defp request_as_teacher(conn, teacher, activity, tag) do
-    conn |> with_current_teacher(teacher) |> post(annotation_path(conn, :toggle, %{activity_id: activity.id, tag_id: tag.id}))
+  defp request_as_user(conn, user, activity, tag) do
+    conn |> with_current_user(user) |> post(annotation_path(conn, :toggle, %{activity_id: activity.id, tag_id: tag.id}))
   end
 
   describe "when logged in" do
     test "toggles annotation", %{conn: conn, activity: activity, tag: tag}  do
-      teacher = TeacherFactory.create_teacher
+      user = UserFactory.create_user
       refute Repo.get_by(Annotation, %{activity_id: activity.id, tag_id: tag.id})
-      conn |> request_as_teacher(teacher, activity, tag)
+      conn |> request_as_user(user, activity, tag)
       assert Repo.get_by(Annotation, %{activity_id: activity.id, tag_id: tag.id})
-      conn |> request_as_teacher(teacher, activity, tag)
+      conn |> request_as_user(user, activity, tag)
       refute Repo.get_by(Annotation, %{activity_id: activity.id, tag_id: tag.id})
     end
   end

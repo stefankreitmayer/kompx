@@ -7,6 +7,7 @@ defmodule Kompax.SectionController do
   import Ecto
   alias Ecto.Changeset
 
+  plug :authenticate_user
   plug :scrub_params, "section" when action in [:create, :update]
 
   def new(conn, %{"activity_id" => activity_id}) do

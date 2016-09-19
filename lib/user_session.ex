@@ -15,11 +15,15 @@ defmodule Kompax.UserSession do
     conn.assigns[:current_user] || load_current_user(conn)
   end
 
+  def logged_in?(conn) do
+    !!current_user(conn)
+  end
+
   defp load_current_user(conn) do
     id = Plug.Conn.get_session(conn, :user_id)
     if id do
       user = Kompax.Repo.get!(Kompax.User, id)
-      login(conn, user)
+      conn |> login(user) |> current_user
     end
   end
 end

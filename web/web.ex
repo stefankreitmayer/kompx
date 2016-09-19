@@ -37,6 +37,7 @@ defmodule Kompax.Web do
       import Kompax.Router.Helpers
       import Kompax.Gettext
       import Kompax.UserAuthentication, only: [authenticate_user: 2]
+      import Kompax.UserSession, only: [current_user: 1]
     end
   end
 
@@ -53,6 +54,8 @@ defmodule Kompax.Web do
       import Kompax.Router.Helpers
       import Kompax.ErrorHelpers
       import Kompax.Gettext
+
+      import Kompax.UserSession, only: [current_user: 1, logged_in?: 1]
     end
   end
 

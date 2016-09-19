@@ -16,17 +16,15 @@
       %header.header
         %nav(role="navigation")
           %ul.nav.nav-pills.pull-right
-            %li
-              = link "Activities", to: activity_path(@conn, :index)
-            %li
-              = link "Aspects", to: aspect_path(@conn, :index)
-          -#   - if logged_in?(@conn) do
-          -#     %li.logged-in-teacher-name
-          -#       = "#{current_teacher(@conn).first} #{current_teacher(@conn).last}"
-          -#     %li
-          -#       = link "Logout", to: session_path(@conn, :delete), method: :delete
-          -#   - else
-          -#     = link "Teacher Login", to: session_path(@conn, :new), class: "button"
+            - if logged_in?(@conn) do
+              %li
+                = link "Activities", to: activity_path(@conn, :index)
+              %li
+                = link "Aspects", to: aspect_path(@conn, :index)
+              %li
+                .alert.alert-info
+                  = "Logged in as #{current_user(@conn).email}"
+                  = link "Logout", to: session_path(@conn, :delete), method: :delete
           %a{href: '/'}
             %span.logo
 

@@ -4,7 +4,7 @@ use Mix.Config
 # you can enable the server option below.
 config :kompax, Kompax.Endpoint,
   http: [port: 4001],
-  server: false
+  server: true
 
 # Print only warnings and errors during test
 config :logger, level: :warn
@@ -21,3 +21,6 @@ config :kompax, Kompax.Repo,
 # Reduce encryption in tests to improve speed
 config :comeonin, :bcrypt_log_rounds, 4
 config :comeonin, :pbkdf2_rounds, 1
+
+# acceptance tests using headless browser
+config :hound, driver: "phantomjs"

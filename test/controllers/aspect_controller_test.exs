@@ -44,7 +44,7 @@ defmodule Kompax.AspectControllerTest do
 
     test "renders page not found when id is nonexistent", %{conn: conn, user: user} do
       assert_error_sent 404, fn ->
-        conn |> with_current_user(user) |> get(aspect_path(:show, -1))
+        conn |> with_current_user(user) |> get(aspect_path(conn, :show, -1))
       end
     end
 

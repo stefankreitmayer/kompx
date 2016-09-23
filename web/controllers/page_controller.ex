@@ -1,9 +1,14 @@
 defmodule Kompax.PageController do
   use Kompax.Web, :controller
 
-  plug :put_layout, "elm.html"
 
-  def index(conn, _params) do
-    render conn, "index.html"
+  def home(conn, _params) do
+    render conn, "home.html"
+  end
+
+  def finder(conn, _params) do
+    conn
+    |> put_layout("elm.html")
+    |> render("finder.html")
   end
 end

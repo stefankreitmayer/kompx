@@ -25,6 +25,9 @@
                 .alert.alert-info
                   = "Logged in as #{current_user(@conn).email}"
                   = link "Logout", to: session_path(@conn, :delete), method: :delete
+            - else
+              %li
+                = link "Aufgaben", to: page_path(@conn, :finder)
           %a{href: '/'}
             %span.logo
 

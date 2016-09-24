@@ -1,19 +1,20 @@
-%h2 All Aspects
+.container.admin
+  %h2 All Aspects
 
-%table.table
-  %thead
-    %tr
-      %th Name
-      %th Position
-
-      %th
-  %tbody
-    - for aspect <- @aspects do
+  %table.table
+    %thead
       %tr
-      %td= link aspect.name, to: aspect_path(@conn, :show, aspect)
-      %td= aspect.position
+        %th Name
+        %th Position
 
-      %td.text-right
-        = link "Delete", to: aspect_path(@conn, :delete, aspect), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+        %th
+    %tbody
+      - for aspect <- @aspects do
+        %tr
+        %td= link aspect.name, to: aspect_path(@conn, :show, aspect)
+        %td= aspect.position
 
-= link "New aspect", to: aspect_path(@conn, :new), class: "btn btn-default btn-xs"
+        %td.text-right
+          = link "Delete", to: aspect_path(@conn, :delete, aspect), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+  = link "New aspect", to: aspect_path(@conn, :new), class: "btn btn-default btn-xs"

@@ -7,12 +7,14 @@ defmodule Kompax.SessionController do
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
   def new(conn, _params) do
-    conn |> Plug.Conn.assign(:current_user, UserSession.current_user(conn))
-    render(conn, "new.html", changeset: User.changeset(%User{}))
+    conn
+    |> Plug.Conn.assign(:current_user, UserSession.current_user(conn))
+    |> assign(:page_title, "KoLibris - Login")
+    |> assign(:include_homelink, true)
+    |> render("new.html", changeset: User.changeset(%User{}))
   end
 
   def create(conn, %{"user" => user_params}) do
-    conn |> Plug.Conn.assign(:current_user, UserSession.current_user(conn))
     user = Repo.get_by(User, email: user_params["email"])
     if user && checkpw(user_params["password"], user.password_hash) do
       conn

@@ -1,5 +1,6 @@
-%h2 New aspect
+.container.admin
+  %h2 New aspect
 
-= render "form.html", changeset: @changeset, action: aspect_path(@conn, :create)
+  = render "form.html", changeset: @changeset, action: aspect_path(@conn, :create)
 
-= link "Back", to: aspect_path(@conn, :index)
+  = link "Back", to: aspect_path(@conn, :index)

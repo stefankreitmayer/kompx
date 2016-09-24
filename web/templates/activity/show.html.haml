@@ -1,50 +1,51 @@
-.well
-  %h2= "Activity: #{@activity.title}"
-  %p
-    %strong Summary:
-    = @activity.summary
-  %p
-    %strong Published:
-    = @activity.published
-  = link "Edit", to: activity_path(@conn, :edit, @activity), class: "btn btn-default btn-xs"
+.container.admin
+  .well
+    %h2= "Activity: #{@activity.title}"
+    %p
+      %strong Summary:
+      = @activity.summary
+    %p
+      %strong Published:
+      = @activity.published
+    = link "Edit", to: activity_path(@conn, :edit, @activity), class: "btn btn-default btn-xs"
 
-%h3#sections Sections
-- for section <- @sections do
-  .panel.panel-primary.section-panel
-    .panel-heading
-      = section.title
-      = link to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right" do
-        .glyphicon.glyphicon-remove
-        = "Delete"
-      - end
-      = link to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right" do
-        .glyphicon.glyphicon-pencil
-        = "Edit"
-      - end
-      - if section != List.last(@sections) do
-        = link to: activity_section_path(@conn, :move, @activity, section), method: :patch, class: "btn btn-default btn-xs pull-right" do
-          .glyphicon.glyphicon-arrow-down
-          = "Move down"
+  %h3#sections Sections
+  - for section <- @sections do
+    .panel.panel-primary.section-panel
+      .panel-heading
+        = section.title
+        = link to: activity_section_path(@conn, :delete, @activity, section), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right" do
+          .glyphicon.glyphicon-remove
+          = "Delete"
         - end
-    .panel-body
-      = render "sectionbody.html", body: section.body
-%p
-  = link "New section", to: activity_section_path(@conn, :new, @activity), class: "btn btn-default btn-xs"
+        = link to: activity_section_path(@conn, :edit, @activity, section), class: "btn btn-default btn-xs pull-right" do
+          .glyphicon.glyphicon-pencil
+          = "Edit"
+        - end
+        - if section != List.last(@sections) do
+          = link to: activity_section_path(@conn, :move, @activity, section), method: :patch, class: "btn btn-default btn-xs pull-right" do
+            .glyphicon.glyphicon-arrow-down
+            = "Move down"
+          - end
+      .panel-body
+        = render "sectionbody.html", body: section.body
+  %p
+    = link "New section", to: activity_section_path(@conn, :new, @activity), class: "btn btn-default btn-xs"
 
-%hr
+  %hr
 
-%h3 Aspects
-- for aspect <- @aspects do
-  .aspect-anchor{id: "aspect-anchor-#{aspect.id}"}
-  .panel.panel-primary.aspect-panel
-    .panel-heading
-      = aspect.name
-    .panel-body
-      %ul.list-group
-        - for tag <- aspect.tags do
-          %li.list-group-item
-            = render "annotation_toggle.html", conn: @conn, activity_id: @activity.id, tag_id: tag.id, class: toggleButtonClass(@activity, tag), icon: toggleButtonIcon(@activity, tag)
-            = tag.name
-%hr
+  %h3 Aspects
+  - for aspect <- @aspects do
+    .aspect-anchor{id: "aspect-anchor-#{aspect.id}"}
+    .panel.panel-primary.aspect-panel
+      .panel-heading
+        = aspect.name
+      .panel-body
+        %ul.list-group
+          - for tag <- aspect.tags do
+            %li.list-group-item
+              = render "annotation_toggle.html", conn: @conn, activity_id: @activity.id, tag_id: tag.id, class: toggleButtonClass(@activity, tag), icon: toggleButtonIcon(@activity, tag)
+              = tag.name
+  %hr
 
-= link "Back", to: activity_path(@conn, :index)
+  = link "Back", to: activity_path(@conn, :index)

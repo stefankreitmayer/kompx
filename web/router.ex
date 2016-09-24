@@ -33,7 +33,10 @@ defmodule Kompax.Router do
     delete "/logout", SessionController, :delete
 
     get "/", PageController, :home
-    get "/aufgaben", PageController, :finder
+    get "/aufgaben-finden", PageController, :finder
+    get "/about", PageController, :about
+    get "/selbst-aufgaben-erstellen", PageController, :contribute
+    get "/impressum", PageController, :imprint
   end
 
   # Other scopes may use custom stacks.

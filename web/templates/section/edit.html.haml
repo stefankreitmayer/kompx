@@ -1,5 +1,5 @@
-%h2 Edit section
+  %h2 Edit section
 
-= render "form.html", changeset: @changeset, action: activity_section_path(@conn, :update, @section.activity, @section)
+  = render "form.html", changeset: @changeset, action: activity_section_path(@conn, :update, @section.activity, @section)
 
-= link "Back", to: activity_path(@conn, :show, @section.activity)
+  = link "Back", to: activity_path(@conn, :show, @section.activity)

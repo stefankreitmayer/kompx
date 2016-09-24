@@ -1,17 +1,13 @@
 html.elm-layout,
 html.elm-layout body{
   background: #d6dce6 !important;
+  font-size: 110%;
 }
 
-body{
+.elm-layout body{
   padding-top: 100px;
   overflow-x: hidden;
   overflow-y: scroll;
-}
-
-#elm-main,body,html{
-  color: #222;
-  font-size: 110%;
 }
 
 #elm-main h2{

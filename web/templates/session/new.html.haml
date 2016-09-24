@@ -1,17 +1,18 @@
-= form_for @changeset, session_path(@conn, :create), fn f ->
-  %h2.form-signin-heading Administrator Login
-  %label.sr-only{:for => "inputEmail"} Email
+.container
+  = form_for @changeset, session_path(@conn, :create), fn f ->
+    %h2.form-signin-heading Administrator Login
+    %label.sr-only{:for => "inputEmail"} Email
 
-  .form-group
-    = label f, :email, class: "control-label"
-    = email_input f, :email, class: "form-control", autofocus: true, required: true, maxlength: 80
-    = error_tag f, :email
+    .form-group
+      = label f, :email, class: "control-label"
+      = email_input f, :email, class: "form-control", autofocus: true, required: true, maxlength: 80
+      = error_tag f, :email
 
-  .form-group
-    = label f, :password, class: "control-label"
-    = password_input f, :password, class: "form-control", required: true, maxlength: 80
-    = error_tag f, :password
+    .form-group
+      = label f, :password, class: "control-label"
+      = password_input f, :password, class: "form-control", required: true, maxlength: 80
+      = error_tag f, :password
 
-  .form-group
-    = submit "Login", class: "btn btn-primary btn-lg btn-primary btn-block"
-- end
+    .form-group
+      = submit "Login", class: "btn btn-primary btn-lg btn-primary btn-block"
+  - end

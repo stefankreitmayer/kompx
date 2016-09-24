@@ -1,0 +1,94 @@
+body,html{
+  color: #222;
+}
+
+html{
+  background: #444;
+}
+
+header, main{
+  margin: 0;
+  margin: 0;
+  background: #fc4;
+}
+
+main{
+  padding: 2em 0;
+}
+
+.container{
+  max-width: 720px;
+}
+
+.homelinkbar {
+  padding-top: 15px;
+}
+
+.homelinkbar h1{
+  margin: 0;
+}
+
+.brand{
+  margin: 0;
+  font-family: Futura, sans-serif;
+}
+
+.brand h1{
+  color: rgba(255,255,255,.7);
+  font-size: 60px;
+}
+
+@media screen and (min-width: 25em) {
+  .homelinkbar {
+    padding: 15px;
+  }
+}
+
+.jumbotron {
+  text-align: center;
+  background: none;
+}
+
+.jumbotron .brand {
+  text-align: center;
+  padding-top: 10vh;
+}
+
+.jumbotron .lead{
+  margin-top: 3em;
+}
+
+.startbutton {
+  margin: 5em auto;
+}
+
+.alert{
+  margin-bottom: 0;
+}
+
+main h2:first-child{
+  margin-top: 15px;
+}
+
+footer{
+  padding-top: 1em;
+  padding-bottom: 2em;
+  background: #444;
+  color: #aaa;
+}
+
+footer h4{
+  margin-top: 1.7em;
+  margin-bottom: .5em;
+  color: #d8d8d8;
+}
+
+footer a{
+  color: #aaa;
+  text-decoration: underline;
+}
+
+footer a:hover{
+  color: #eee;
+  text-decoration: none;
+}

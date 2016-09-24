@@ -1,28 +1,29 @@
-.well
-  %h2= "Aspect: #{@aspect.name}"
+.container.admin
+  .well
+    %h2= "Aspect: #{@aspect.name}"
+    %p
+      %strong Position:
+      = @aspect.position
+    = link "Edit", to: aspect_path(@conn, :edit, @aspect), class: "btn btn-default btn-xs"
+
+
+  %h3 Tags
+  %hr
+  - for tag <- @aspect.tags do
+    .row
+      .col-xs-8
+        %h4= tag.name
+      .col-xs-4
+        = link "Delete", to: aspect_tag_path(@conn, :delete, @aspect, tag), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
+        = link "Edit", to: aspect_tag_path(@conn, :edit, @aspect, tag), class: "btn btn-default btn-xs pull-right"
+        - if tag != List.last(@aspect.tags) do
+          = link to: aspect_tag_path(@conn, :move, @aspect, tag), method: :patch, class: "btn btn-default btn-xs pull-right" do
+            .glyphicon.glyphicon-arrow-down
+            = "Move down"
+          - end
   %p
-    %strong Position:
-    = @aspect.position
-  = link "Edit", to: aspect_path(@conn, :edit, @aspect), class: "btn btn-default btn-xs"
+    = link "New tag", to: aspect_tag_path(@conn, :new, @aspect), class: "btn btn-default btn-xs"
 
+  %hr
 
-%h3 Tags
-%hr
-- for tag <- @aspect.tags do
-  .row
-    .col-xs-8
-      %h4= tag.name
-    .col-xs-4
-      = link "Delete", to: aspect_tag_path(@conn, :delete, @aspect, tag), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs pull-right"
-      = link "Edit", to: aspect_tag_path(@conn, :edit, @aspect, tag), class: "btn btn-default btn-xs pull-right"
-      - if tag != List.last(@aspect.tags) do
-        = link to: aspect_tag_path(@conn, :move, @aspect, tag), method: :patch, class: "btn btn-default btn-xs pull-right" do
-          .glyphicon.glyphicon-arrow-down
-          = "Move down"
-        - end
-%p
-  = link "New tag", to: aspect_tag_path(@conn, :new, @aspect), class: "btn btn-default btn-xs"
-
-%hr
-
-= link "Back", to: aspect_path(@conn, :index)
+  = link "Back", to: aspect_path(@conn, :index)

@@ -1,5 +1,6 @@
-%h2 New activity
+.container.admin
+  %h2 New activity
 
-= render "form.html", changeset: @changeset, action: activity_path(@conn, :create)
+  = render "form.html", changeset: @changeset, action: activity_path(@conn, :create)
 
-= link "Back", to: activity_path(@conn, :index)
+  = link "Back", to: activity_path(@conn, :index)

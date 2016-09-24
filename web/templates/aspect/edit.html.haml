@@ -1,5 +1,6 @@
-%h2 Edit aspect
+.container.admin
+  %h2 Edit aspect
 
-= render "form.html", changeset: @changeset, action: aspect_path(@conn, :update, @aspect)
+  = render "form.html", changeset: @changeset, action: aspect_path(@conn, :update, @aspect)
 
-= link "Back", to: aspect_path(@conn, :index)
+  = link "Back", to: aspect_path(@conn, :index)

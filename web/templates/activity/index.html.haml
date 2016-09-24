@@ -1,21 +1,22 @@
-%h2 All Activities
+.container.admin
+  %h2 All Activities
 
-%table.table
-  %thead
-    %tr
-      %th Title
-      %th Summary
-      %th Published
-
-      %th
-  %tbody
-    - for activity <- @activities do
+  %table.table
+    %thead
       %tr
-      %td= link activity.title, to: activity_path(@conn, :show, activity)
-      %td= activity.summary
-      %td= activity.published
+        %th Title
+        %th Summary
+        %th Published
 
-      %td.text-right
-        = link "Delete", to: activity_path(@conn, :delete, activity), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+        %th
+    %tbody
+      - for activity <- @activities do
+        %tr
+        %td= link activity.title, to: activity_path(@conn, :show, activity)
+        %td= activity.summary
+        %td= activity.published
 
-= link "New activity", to: activity_path(@conn, :new), class: "btn btn-default btn-xs"
+        %td.text-right
+          = link "Delete", to: activity_path(@conn, :delete, activity), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+  = link "New activity", to: activity_path(@conn, :new), class: "btn btn-default btn-xs"

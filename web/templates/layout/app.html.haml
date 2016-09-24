@@ -7,35 +7,50 @@
     %meta(name="description" content="")
     %meta(name="author" content="")
 
-    %title Kompax
+    %title= assigns[:page_title] || "KoLibris"
     %link(rel="stylesheet" href='#{static_path(@conn, "/css/app.css")}')
     %script(src='#{static_path(@conn, "/js/app.js")}')
 
   %body
-    .container
-      %header.header
+    %header.header
+      - if logged_in?(@conn) do
         %nav(role="navigation")
           %ul.nav.nav-pills.pull-right
-            - if logged_in?(@conn) do
-              %li
-                = link "Activities", to: activity_path(@conn, :index)
-              %li
-                = link "Aspects", to: aspect_path(@conn, :index)
-              %li
-                .alert.alert-info
-                  = "Logged in as #{current_user(@conn).email}"
-                  = link "Logout", to: session_path(@conn, :delete), method: :delete
-            - else
-              %li
-                = link "Aufgaben", to: page_path(@conn, :finder)
-          %a{href: '/'}
-            %span.logo
+            %li
+              = link "Activities", to: activity_path(@conn, :index)
+            %li
+              = link "Aspects", to: aspect_path(@conn, :index)
+            %li
+              .alert.alert-info
+                = "Logged in as #{current_user(@conn).email}"
+                = link "Logout", to: session_path(@conn, :delete), method: :delete
+      - else
+        - if assigns[:include_homelink] do
+          = render "homelinkbar.html"
 
-      .alert-boxes
-        %p.alert.alert-success(role="alert")= get_flash(@conn, :success)
-        %p.alert.alert-info(role="alert")= get_flash(@conn, :info)
-        %p.alert.alert-warning(role="alert")= get_flash(@conn, :warning)
-        %p.alert.alert-danger(role="alert")= get_flash(@conn, :error)
+    .alert-boxes
+      %p.alert.alert-success(role="alert")= get_flash(@conn, :success)
+      %p.alert.alert-info(role="alert")= get_flash(@conn, :info)
+      %p.alert.alert-warning(role="alert")= get_flash(@conn, :warning)
+      %p.alert.alert-danger(role="alert")= get_flash(@conn, :error)
 
-      %main(role="main")
-        = render @view_module, @view_template, assigns
+    %main(role="main")
+      = render @view_module, @view_template, assigns
+
+    %footer
+      .container
+        .row
+          .col-sm-4
+            %h4 Informationen
+            %p
+              = link "Über KoLibris", to: page_path(@conn, :about)
+            %p
+              = link "Home", to: page_path(@conn, :home)
+          .col-sm-4
+            %h4 Für Lehrer
+            %p
+              = link "Selbst Aufgaben erstellen", to: page_path(@conn, :contribute)
+          .col-sm-4
+            %h4 Kontakt
+            %p
+              = link "Impressum", to: page_path(@conn, :imprint)

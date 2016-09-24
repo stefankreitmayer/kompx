@@ -1,8 +1,7 @@
-%header
-  .brand
-    %h1 KoLibris
-  .container
-    .jumbotron
-      %p.lead
-        Die freie Onlinebibliothek für Kompositionsaufgaben
-      = link "Zu meinem Unterricht passende Aufgaben finden", to: page_path(@conn, :finder), class: "btn btn-primary startbutton"
+.container
+  .jumbotron
+    .brand
+      %h1 KoLibris
+    %p.lead
+      Die freie Onlinebibliothek für Kompositionsaufgaben
+    = link "Aufgaben für meinen Unterricht finden", to: page_path(@conn, :finder), class: "btn btn-primary startbutton"

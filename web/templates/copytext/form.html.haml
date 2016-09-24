@@ -1,0 +1,18 @@
+- form_for @changeset, @action, fn f ->
+  - if @changeset.action do
+    .alert.alert-danger
+      %p
+        Oops, something went wrong! Please check the errors below.
+
+  .form-group
+    = label f, :slug, class: "control-label"
+    = text_input f, :slug, class: "form-control", autofocus: true, required: true, maxlength: 40
+    = error_tag f, :slug
+
+  .form-group
+    = label f, :body, class: "control-label"
+    = textarea f, :body, class: "form-control", required: true, maxlength: 100000, rows: 20
+    = error_tag f, :body
+
+  .form-group
+    = submit "Submit", class: "btn btn-primary"

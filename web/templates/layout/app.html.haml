@@ -21,6 +21,8 @@
             %li
               = link "Aspects", to: aspect_path(@conn, :index)
             %li
+              = link "Copytexts", to: copytext_path(@conn, :index)
+            %li
               .alert.alert-info
                 = "Logged in as #{current_user(@conn).email}"
                 = link "Logout", to: session_path(@conn, :delete), method: :delete

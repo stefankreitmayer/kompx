@@ -1,0 +1,16 @@
+.container.admin
+  %h2 Show copytext
+
+  %ul
+
+    %li
+      %strong Body:
+      = @copytext.body
+
+    %li
+      %strong Slug:
+      = @copytext.slug
+
+
+  = link "Edit", to: copytext_path(@conn, :edit, @copytext)
+  = link "Back", to: copytext_path(@conn, :index)

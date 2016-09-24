@@ -1,6 +1,15 @@
 defmodule NavigationTest do
   use Kompax.IntegrationCase
 
+  alias Kompax.Copytext
+
+  setup do
+    %Copytext{slug: "about", body: "about blabla"} |> Repo.insert!
+    %Copytext{slug: "aufgaben-erstellen", body: "erstellen blabla"} |> Repo.insert!
+    %Copytext{slug: "impressum", body: "impressum blabla"} |> Repo.insert!
+    :ok
+  end
+
   test "Home page" do
     navigate_to "/"
     assert page_title == "KoLibris"
@@ -12,6 +21,7 @@ defmodule NavigationTest do
     click(link)
     assert current_path == "/about"
     assert page_title == "KoLibris - Über das Projekt"
+    assert visible_page_text =~ "about blabla"
     click(find_element(:link_text, "KoLibris"))
     assert current_path == "/"
   end
@@ -22,6 +32,7 @@ defmodule NavigationTest do
     click(link)
     assert current_path == "/aufgaben-erstellen"
     assert page_title == "KoLibris - Aufgaben erstellen"
+    assert visible_page_text =~ "erstellen blabla"
     click(find_element(:link_text, "KoLibris"))
     assert current_path == "/"
   end
@@ -32,6 +43,7 @@ defmodule NavigationTest do
     click(link)
     assert current_path == "/impressum"
     assert page_title == "KoLibris - Impressum"
+    assert visible_page_text =~ "impressum blabla"
     click(find_element(:link_text, "KoLibris"))
     assert current_path == "/"
   end

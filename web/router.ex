@@ -16,6 +16,8 @@ defmodule Kompax.Router do
   scope "/", Kompax do
     pipe_through :browser # Use the default browser stack
 
+    resources "/copytexts", CopytextController, except: [:show]
+
     resources "/activities", ActivityController do
       resources "/sections", SectionController, except: [:index, :show]
       patch "/sections/move/:id", SectionController, :move

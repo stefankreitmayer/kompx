@@ -1,0 +1,18 @@
+.container.admin
+  %h2 All Copytexts
+
+  %table.table
+    %thead
+      %tr
+        %th Slug
+
+        %th
+    %tbody
+      - for copytext <- @copytexts do
+        %tr
+        %td= link copytext.slug, to: copytext_path(@conn, :edit, copytext)
+
+        %td.text-right
+          = link "Delete", to: copytext_path(@conn, :delete, copytext), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs"
+
+  = link "New copytext", to: copytext_path(@conn, :new), class: "btn btn-default btn-xs"

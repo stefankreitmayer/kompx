@@ -1,0 +1,6 @@
+.container.admin
+  %h2 Edit copytext
+
+  = render "form.html", changeset: @changeset, action: copytext_path(@conn, :update, @copytext)
+
+  = link "Back", to: copytext_path(@conn, :index)

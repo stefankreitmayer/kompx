@@ -112,14 +112,26 @@ ul.elm-options li{
 
 .elm-help{
   margin-top: -60px;
-  -webkit-transition: margin-top 1s;
-  transition: margin-top 1s;
+  max-height: 60px;
+  overflow: hidden;
+  -webkit-transition: margin-top .5s, max-height 1s;
+  transition: margin-top .5s, max-height 1s;
 }
 
 .elm-help.visible{
   margin-top: 10px;
+  max-height: 200px;
 }
 
+.elm-help-close-button-wrapper{
+  text-align: right;
+}
+
+.elm-help-close-button-wrapper button{
+  background: none;
+  border: none;
+  outline: none;
+}
 
 
 /* Search results page */

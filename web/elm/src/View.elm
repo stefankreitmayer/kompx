@@ -1,6 +1,6 @@
 module View exposing (view)
 
-import Html exposing (Html,h2,div,ul,li,button)
+import Html exposing (Html,p,h2,div,ul,li,button)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (class,classList,id,property,attribute)
 import Json.Encode
@@ -246,7 +246,11 @@ renderHelp model =
 
           ChosenActivityPage ->
             "Detailansicht. Zurück mit Pfeil nach links"
+      closeButton =
+        p
+          [ class "elm-help-close-button-wrapper" ]
+          [ button [ onClick ToggleHelp ] [ Html.text "×" ] ]
   in
       div
         [ class classString ]
-        [ Html.text message ]
+        [ closeButton, p [] [ Html.text message ] ]

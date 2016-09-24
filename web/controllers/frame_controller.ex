@@ -7,7 +7,7 @@ defmodule Kompax.FrameController do
   alias Kompax.Tag
 
   def show(conn, _params) do
-    activities = Repo.all(from a in Activity, where: a.published)
+    activities = Repo.all(from a in Activity, where: a.published, order_by: a.title)
               |> Repo.preload(sections: (from s in Section, order_by: [asc: s.position]))
               |> Repo.preload(:annotations)
     aspects = Repo.all(Aspect)

@@ -35,7 +35,7 @@ defmodule Kompax.Router do
     get "/", PageController, :home
     get "/aufgaben-finden", PageController, :finder
     get "/about", PageController, :about
-    get "/selbst-aufgaben-erstellen", PageController, :contribute
+    get "/aufgaben-erstellen", PageController, :contribute
     get "/impressum", PageController, :imprint
   end
 

@@ -236,7 +236,7 @@ renderHelp model =
       message =
         case model.currentPage of
           AspectPage _ ->
-            "Mehrfach-Auswahl = \"oder\""
+            "Wählen Sie bitte einen oder mehrere Aspekte aus. Mit dem Pfeil nach rechts gelangen Sie zu den Kompositionsaufgaben."
 
           SearchResultsPage ->
             if anyMatches then
@@ -245,7 +245,7 @@ renderHelp model =
               "Bitte Suchkriterien erweitern"
 
           ChosenActivityPage ->
-            "Detailansicht. Zurück mit <"
+            "Detailansicht. Zurück mit Pfeil nach links"
   in
       div
         [ class classString ]

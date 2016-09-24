@@ -18,10 +18,10 @@ defmodule NavigationTest do
 
   test "Teachers page" do
     navigate_to "/"
-    link = find_element(:link_text, "Selbst Aufgaben erstellen")
+    link = find_element(:link_text, "Aufgaben erstellen")
     click(link)
-    assert current_path == "/selbst-aufgaben-erstellen"
-    assert page_title == "KoLibris - Selbst Aufgaben erstellen"
+    assert current_path == "/aufgaben-erstellen"
+    assert page_title == "KoLibris - Aufgaben erstellen"
     click(find_element(:link_text, "KoLibris"))
     assert current_path == "/"
   end

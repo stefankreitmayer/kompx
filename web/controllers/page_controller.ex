@@ -18,7 +18,7 @@ defmodule Kompax.PageController do
 
   def contribute(conn, _params) do
     conn
-    |> assign(:page_title, "KoLibris - Selbst Aufgaben erstellen")
+    |> assign(:page_title, "KoLibris - Aufgaben erstellen")
     |> assign(:include_homelink, true)
     |> render("contribute.html")
   end

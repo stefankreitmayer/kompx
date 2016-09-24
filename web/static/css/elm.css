@@ -33,6 +33,7 @@ html.elm-layout body{
   font-weight: 500;
   -webkit-transition: background-color 1s;
   transition: background-color 1s;
+  z-index: 3;
 }
 
 #elm-header{
@@ -42,6 +43,7 @@ html.elm-layout body{
   background-color: #202830;
   height: 80px;
   width: 100%;
+  z-index: 3;
 }
 
 #elm-header button{
@@ -100,6 +102,7 @@ ul.elm-options li{
 
 .elm-optionbutton .glyphicon{
   margin-right: .8em;
+  z-index: 1;
 }
 
 .elm-user-message{

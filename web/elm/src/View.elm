@@ -202,7 +202,9 @@ renderChosenActivity activity =
     Just activity ->
       let
           sections = List.map renderSection activity.sections
-          sectionsContainer = Html.div [ class "elm-chosen-activity" ] sections
+          author = p [ class "elm-chosen-activity-author" ] [ Html.text ("Autor(in): "++activity.author) ]
+          children = sections ++ [ author ]
+          sectionsContainer = Html.div [ class "elm-chosen-activity" ] children
       in
           sectionsContainer
 

@@ -28,6 +28,7 @@ defmodule Kompax.ActivityView do
     %{id: activity.id,
      title: activity.title,
      summary: activity.summary,
+     author: activity.author,
      sections: SectionView.render("index.json", sections: activity.sections),
      tagIds: Enum.map(activity.annotations, fn(annotation) -> annotation.tag_id end)}
   end

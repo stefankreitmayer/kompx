@@ -32,11 +32,12 @@ frameDec =
 
 activityDec : Decoder Activity
 activityDec =
-  Decode.object5
+  Decode.object6
     Activity
     ("id" := int)
     ("title" := string)
     ("summary" := string)
+    ("author" := string)
     ("sections" := (list sectionDec))
     ("tagIds" := (list int))
 

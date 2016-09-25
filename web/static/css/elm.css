@@ -172,3 +172,8 @@ ul.elm-search-results li .panel-heading{
   max-width: 95%;
   display: block;
 }
+
+.elm-chosen-activity-author{
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,.1);
+}

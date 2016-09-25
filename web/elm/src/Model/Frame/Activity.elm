@@ -4,6 +4,7 @@ type alias Activity =
   { id : Int
   , title : String
   , summary : String
+  , author : String
   , sections : List Section
   , tagIds : List Int }
 

@@ -76,11 +76,12 @@ main h2{
 
 .i-dot{
   display: inline-block;
-  margin-left: -.68em;
-  color: rgba(90, 140, 90, .8);
-  --webkit-transform: translate(0, 1em);
-  --ms-transform: translate(0, 1em);
-  transform: translate(0, -.296em);
+  height: .16em;
+  width: .16em;
+  border-radius: .08em;
+  margin-left: -.608em;
+  margin-bottom: .599em;
+  background-color: rgba(90, 140, 90, .8);
 }
 
 main h2:first-child{

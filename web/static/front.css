@@ -74,6 +74,15 @@ main h2{
   margin-bottom: 0;
 }
 
+.i-dot{
+  display: inline-block;
+  margin-left: -.68em;
+  color: rgba(90, 140, 90, .8);
+  --webkit-transform: translate(0, 1em);
+  --ms-transform: translate(0, 1em);
+  transform: translate(0, -.296em);
+}
+
 main h2:first-child{
   margin-top: 15px;
 }

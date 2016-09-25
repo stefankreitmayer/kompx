@@ -3,7 +3,7 @@ defmodule Kompax.ActivityTest do
 
   alias Kompax.Activity
 
-  @valid_attrs %{published: true, summary: "some content", title: "some content"}
+  @valid_attrs %{published: true, summary: "some content", title: "some content", author: "J. Doe"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
@@ -23,6 +23,11 @@ defmodule Kompax.ActivityTest do
 
   test "summary required" do
     changeset = Activity.changeset(%Activity{}, Map.merge(@valid_attrs, %{summary: ""}))
+    refute changeset.valid?
+  end
+
+  test "author required" do
+    changeset = Activity.changeset(%Activity{}, Map.merge(@valid_attrs, %{author: ""}))
     refute changeset.valid?
   end
 end

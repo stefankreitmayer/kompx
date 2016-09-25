@@ -15,6 +15,11 @@
     = error_tag f, :summary
 
   .form-group
+    = label f, :author, class: "control-label"
+    = text_input f, :author, class: "form-control"
+    = error_tag f, :author
+
+  .form-group
     = label f, :published, class: "control-label"
     = checkbox f, :published, class: "form-control"
     = error_tag f, :published

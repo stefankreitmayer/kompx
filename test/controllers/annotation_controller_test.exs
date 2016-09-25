@@ -10,7 +10,7 @@ defmodule Kompax.AnnotationControllerTest do
 
   setup do
     conn = build_conn()
-    activity = %Activity{title: "foo", summary: "bar", published: true} |> Repo.insert!
+    activity = %Activity{title: "foo", summary: "bar", published: true, author: "J. Doe"} |> Repo.insert!
     tag = %Tag{name: "baz"} |> Repo.insert!
     {:ok,
      conn: conn,

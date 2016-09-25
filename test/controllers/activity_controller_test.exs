@@ -7,7 +7,7 @@ defmodule Kompax.ActivityControllerTest do
   import Kompax.ConnCase, only: [with_current_user: 2]
 
 
-  @valid_attrs %{published: true, summary: "some content", title: "some content"}
+  @valid_attrs %{published: true, summary: "some content", title: "some content", author: "J. Doe"}
   @invalid_attrs %{}
 
   setup do

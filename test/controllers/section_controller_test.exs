@@ -16,7 +16,7 @@ defmodule Kompax.SectionControllerTest do
   end
 
   defp create_activity do
-    Activity.changeset(%Activity{}, %{title: "some title", summary: "some text", published: true})
+    Activity.changeset(%Activity{}, %{title: "some title", summary: "some text", published: true, author: "J. Doe"})
     |> Repo.insert!
   end
 

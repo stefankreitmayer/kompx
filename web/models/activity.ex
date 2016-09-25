@@ -4,6 +4,7 @@ defmodule Kompax.Activity do
   schema "activities" do
     field :title, :string
     field :summary, :string
+    field :author, :string
     field :published, :boolean, default: false
 
     has_many :sections, Kompax.Section
@@ -22,7 +23,7 @@ defmodule Kompax.Activity do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, ~w(title summary published)a)
-    |> validate_required(~w(title summary published)a)
+    |> cast(params, ~w(title summary author published)a)
+    |> validate_required(~w(title summary author published)a)
   end
 end

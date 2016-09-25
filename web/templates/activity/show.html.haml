@@ -5,6 +5,9 @@
       %strong Summary:
       = @activity.summary
     %p
+      %strong Author:
+      = @activity.author
+    %p
       %strong Published:
       = @activity.published
     = link "Edit", to: activity_path(@conn, :edit, @activity), class: "btn btn-default btn-xs"

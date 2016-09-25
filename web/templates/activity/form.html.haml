@@ -6,17 +6,17 @@
 
   .form-group
     = label f, :title, class: "control-label"
-    = text_input f, :title, class: "form-control", autofocus: true
+    = text_input f, :title, class: "form-control", autofocus: true, required: true, maxlength: 40
     = error_tag f, :title
 
   .form-group
     = label f, :summary, class: "control-label"
-    = textarea f, :summary, class: "form-control"
+    = textarea f, :summary, class: "form-control", required: true, maxlength: 400
     = error_tag f, :summary
 
   .form-group
     = label f, :author, class: "control-label"
-    = text_input f, :author, class: "form-control"
+    = text_input f, :author, class: "form-control", required: true, maxlength: 80
     = error_tag f, :author
 
   .form-group
